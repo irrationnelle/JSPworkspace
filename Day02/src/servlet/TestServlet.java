@@ -5,13 +5,19 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// Annotation을 아래와 같이 추가하는 것은 신식 방법이며 Annotation이나 구식 방법 중 한가지만 해야함
+//@WebServlet(urlPatterns = "/test02")
 public class TestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8"); 
+		
 		PrintWriter writer = response.getWriter();
 		
 		writer.println("<html>");

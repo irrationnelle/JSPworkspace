@@ -14,6 +14,7 @@
   <!-- servlet-class는 java파일로 작성한 클래스의 풀 패키지 이름이어야 함 -->
   
   <servlet>
+  	<!-- testServlet이라는 객체를 만든다. -->
   	<servlet-name>testServlet</servlet-name>
   	<servlet-class>servlet.TestServlet</servlet-class>
   </servlet>
@@ -22,8 +23,9 @@
   <servlet-mapping>
   	<!-- 이 때 servlet-name은 위에 servlet에서 지정한 이름으로 해준다. -->
   	<servlet-name>testServlet</servlet-name>
-  	<!-- 위에 작성한 TestServlet.java를 html url을 test02로 지정 하겠다는 의미!! -->
+  	<!-- 브라우저가 보내는 요청(Request) 중 /test02로 오는 요청은 testServlet에게 보내겠다는 의미 -->
   	<url-pattern>/test02</url-pattern>
+  	<!-- 참고로 위의 방식은 구식 방법 -->
   </servlet-mapping>
   
 </web-app>
