@@ -28,19 +28,19 @@
 			int result = 0;
 			
 			// 1. 드라이버 로딩
-// 			Class.forName("org.mariadb.jdbc.Driver");
-// 			System.out.println("Driver Loading Complete!");
-			
-// 			String DB_URL = "jdbc:mariadb://localhost:3306/jsp";
-// 			String DB_ID = "root";
-// 			String DB_PW = "sds902";
-			
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");
 			System.out.println("Driver Loading Complete!");
 			
-			String DB_URL = "jdbc:mysql://70.12.109.123:3306/jsp";
+			String DB_URL = "jdbc:mariadb://localhost:3306/jsp";
 			String DB_ID = "root";
 			String DB_PW = "sds902";
+			
+// 			Class.forName("com.mysql.jdbc.Driver");
+// 			System.out.println("Driver Loading Complete!");
+			
+// 			String DB_URL = "jdbc:mysql://70.12.109.123:3306/jsp";
+// 			String DB_ID = "root";
+// 			String DB_PW = "sds902";
 			
 			// 2. 커넥션 생성
 			con = DriverManager.getConnection(DB_URL, DB_ID, DB_PW);

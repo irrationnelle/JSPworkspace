@@ -85,8 +85,8 @@
 			%>			
 		</table>
 		<br>
-		<a href="test02_form.jsp">
-			<button>책 추가하기</button>
+		<a href="test04_index.jsp">
+			<button>메인 화면으로</button>
 		</a>
 	</body>
 </html>

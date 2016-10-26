@@ -16,6 +16,13 @@ public class BookVO {
 		this.year = year;
 		this.price = price;
 	}
+	
+	public BookVO(String title, String publisher, String year, int price) {
+		this.title = title;
+		this.publisher = publisher;
+		this.year = year;
+		this.price = price;
+	}
 
 	public int getBookID() {
 		return bookID;
