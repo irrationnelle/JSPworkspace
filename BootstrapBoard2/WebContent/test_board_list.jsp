@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="vo.ContentsVO"%>
+<%@page import="repository.ContentsDAO"%>
 <%@page import="vo.UserInfoVO"%>
 <%@page import="repository.UserInfoDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
@@ -92,20 +95,35 @@ body { padding-top: 50px; }
 </div>
 
 <div class="container">
-  <div class="starter-template">
-    <h1>회원가입</h1>
-    <br>
-<!--     <p class="lead">회원가입을 위한 폼양식을 넣을 예정</p> -->
-    <form action="test_signup.jsp">
-    	<div class="col-xs-3 col-centered" style="display: inline-block; vertical-align: middle; float: none;">
-	    	<input type="text" name="signupName" class="form-control" placeholder="닉네임 입력" required autofocus><br>
-	    	<input type="text" name="signupID" class="form-control" placeholder="아이디 입력" required autofocus><br>
-	    	<input type="password" name="signupPW" class="form-control" placeholder="비밀번호 입력" required><br>
-    		<button type="submit" class="btn btn-primary">완료</button>
-		</div>
-		<br>
-    </form>
-  </div>
+	<br>
+	<br>
+       <div class="row">
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>title</th>
+                <th>date</th>
+              </tr>
+            </thead>
+            <tbody>
+            <%
+            	ContentsDAO contentsDAO = new ContentsDAO();
+            	List<ContentsVO> contentsList = contentsDAO.selectTotalList();
+            	for(ContentsVO b : contentsList) {
+		            out.println("<tr>");
+					out.println("<td>"+b.getPostNum()+"</td>");
+					out.println("<td>"+b.getUserID()+"</td>");
+					out.println("<td><a>"+b.getTitle()+"</a></td>");
+					out.println("<td>"+b.getDate()+"</td>");
+					out.println("</tr>");
+            	}
+            %>
+            </tbody>
+          </table>
+        </div>
 </div>
 
 </body>

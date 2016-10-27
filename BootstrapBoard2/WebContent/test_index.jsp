@@ -40,8 +40,8 @@ body { padding-top: 50px; }
             <ul class="dropdown-menu">
               <li class="active"><a href="test_index.jsp">홈</a></li>
               <li><a href="test_signup_form.jsp">회원가입</a></li>
-              <li><a href="#">게시판</a></li>
-              <li><a href="#">글쓰기</a></li>
+              <li><a href="test_board_list.jsp">게시판</a></li>
+              <li><a href="test_board_write_form.jsp">글쓰기</a></li>
               <li><a href="#">글삭제</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">네비게이션 헤더</li>
@@ -52,11 +52,23 @@ body { padding-top: 50px; }
         </li>
       </ul>
       <%
-      	String userID = session.getAttribute("userID");
-      	String userPW = session.getAttribute("userPW");
+      	String userID = (String)session.getAttribute("userID");
+      	String userPW = (String)session.getAttribute("userPW");
+      	String userName = (String)session.getAttribute("userName");
+      	
       	UserInfoDAO dao = new UserInfoDAO();
       	UserInfoVO userinfo = dao.selectPW(userID);
-      	if(!userPW.equals(userinfo.getPassword())) {
+      	if(userPW != null && userinfo != null) {
+			if(userPW.equals(userinfo.getPassword())) {
+				out.println("<div calss=\"navbar-form navbar-right\"><h5><font color=\"white\">"+userName+"님 환영합니다!</font></h5></div>");
+				out.println("<form action=\"test_logout.jsp\" style=\"display: inline-block; vertical-align: middle; float: none;\">");
+				out.println("	<button type=\"submit\" class=\"btn-xs btn-danger\">로그아웃</button>");
+				out.println("</form>");
+				out.println("<form action=\"test_setting_form.jsp\" style=\"display: inline-block; vertical-align: middle; float: none;\">");
+				out.println("	<button type=\"submit\" class=\"btn-xs btn-warning\">설정</button>");
+				out.println("</form>");
+      		}
+      	} else {
       %>
 	  <form action="test_login.jsp" class="navbar-form navbar-right" role="form" method="post">
         <div class="form-group">
@@ -72,8 +84,8 @@ body { padding-top: 50px; }
           </label>
         </div>
       </form>
-      <%
-      
+      <%  
+      	}
       %>
     </div>
   </div>

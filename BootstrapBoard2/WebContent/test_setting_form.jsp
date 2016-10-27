@@ -93,17 +93,20 @@ body { padding-top: 50px; }
 
 <div class="container">
   <div class="starter-template">
-    <h1>회원가입</h1>
+    <h1>회원 정보 변경</h1>
     <br>
 <!--     <p class="lead">회원가입을 위한 폼양식을 넣을 예정</p> -->
-    <form action="test_signup.jsp">
-    	<div class="col-xs-3 col-centered" style="display: inline-block; vertical-align: middle; float: none;">
-	    	<input type="text" name="signupName" class="form-control" placeholder="닉네임 입력" required autofocus><br>
-	    	<input type="text" name="signupID" class="form-control" placeholder="아이디 입력" required autofocus><br>
-	    	<input type="password" name="signupPW" class="form-control" placeholder="비밀번호 입력" required><br>
+    <form action="test_setting.jsp" method="post">
+    	<div class="col-xs-5 col-centered" style="display: inline-block; vertical-align: middle; float: none;">
+	    	<input type="text" name="modifyName" class="form-control" placeholder="변경할 닉네임 입력" required autofocus><br>
+	    	<input type="password" name="modifyPW" class="form-control" placeholder="변경할 비밀번호 입력" required><br>
     		<button type="submit" class="btn btn-primary">완료</button>
 		</div>
 		<br>
+    </form>
+    <br>
+    <form action="test_withdraw.jsp">
+    	<button type="submit" class="btn btn-warning">탈퇴하기</button>
     </form>
   </div>
 </div>

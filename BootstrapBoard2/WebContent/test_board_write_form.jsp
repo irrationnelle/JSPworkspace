@@ -1,3 +1,5 @@
+<%@page import="vo.UserInfoVO"%>
+<%@page import="repository.UserInfoDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -38,8 +40,8 @@ body { padding-top: 50px; }
             <ul class="dropdown-menu">
               <li class="active"><a href="test_index.jsp">홈</a></li>
               <li><a href="test_signup_form.jsp">회원가입</a></li>
-              <li><a href="#">게시판</a></li>
-              <li><a href="#">글쓰기</a></li>
+              <li><a href="test_board_list.jsp">게시판</a></li>
+              <li><a href="test_board_write_form.jsp">글쓰기</a></li>
               <li><a href="#">글삭제</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">네비게이션 헤더</li>
@@ -49,12 +51,31 @@ body { padding-top: 50px; }
           </ul>
         </li>
       </ul>
-	  <form class="navbar-form navbar-right" role="form">
+      <%
+      	String userID = (String)session.getAttribute("userID");
+      	String userPW = (String)session.getAttribute("userPW");
+      	String userName = (String)session.getAttribute("userName");
+      	
+      	UserInfoDAO dao = new UserInfoDAO();
+      	UserInfoVO userinfo = dao.selectPW(userID);
+      	if(userPW != null && userinfo != null) {
+			if(userPW.equals(userinfo.getPassword())) {
+				out.println("<div calss=\"navbar-form navbar-right\"><h5><font color=\"white\">"+userName+"님 환영합니다!</font></h5></div>");
+				out.println("<form action=\"test_logout.jsp\" style=\"display: inline-block; vertical-align: middle; float: none;\">");
+				out.println("	<button type=\"submit\" class=\"btn-xs btn-danger\">로그아웃</button>");
+				out.println("</form>");
+				out.println("<form action=\"test_setting_form.jsp\" style=\"display: inline-block; vertical-align: middle; float: none;\">");
+				out.println("	<button type=\"submit\" class=\"btn-xs btn-warning\">설정</button>");
+				out.println("</form>");
+      		}
+      	} else {
+      %>
+	  <form action="test_login.jsp" class="navbar-form navbar-right" role="form" method="post">
         <div class="form-group">
-          <input type="text" placeholder="이메일" class="form-control">
+          <input type="text" name="loginID" placeholder="아이디" class="form-control">
         </div>
         <div class="form-group">
-          <input type="password" placeholder="패스워드" class="form-control">
+          <input type="password" name="loginPW" placeholder="패스워드" class="form-control">
         </div>
         <button type="submit" class="btn btn-success">로그인</button>
          <div class="checkbox">
@@ -63,14 +84,24 @@ body { padding-top: 50px; }
           </label>
         </div>
       </form>
+      <%  
+      	}
+      %>
     </div>
   </div>
 </div>
 
 <div class="container">
   <div class="starter-template">
-    <form action="test_board.jsp">
-    	제목
+    <form action="test_board.jsp" method="post">
+    	<div class="col-xs-7 col-centered" style="display: inline-block; vertical-align: middle; float: none;">
+	    	제목: <input type="text" name="title" class="form-control">
+	    	<br>
+	    	내용: <textarea name="contents" class="form-control" rows="10"></textarea>
+	    	<br>
+	    	<br>
+	    	<button type="submit" class="btn btn-success">보내기</button>
+    	</div>
     </form>
   </div>
 </div>

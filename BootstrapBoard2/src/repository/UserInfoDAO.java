@@ -127,6 +127,27 @@ public class UserInfoDAO {
 		return result;
 	}
 	
+	public int updateName(UserInfoVO userinfo) {
+		createConnection();
+		String sql = "UPDATE userinfo SET name=? WHERE user_id=?";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userinfo.getPassword());
+			pstmt.setString(2, userinfo.getUserID());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("updateName Error");
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			closeConnection();
+		}
+		
+		return result;
+	}
+	
 	public int delete(UserInfoVO userinfo) {
 		createConnection();
 		String sql = "DELETE FROM userinfo WHERE user_id=?";
@@ -183,6 +204,31 @@ public class UserInfoDAO {
 			if(rs.next()) {
 				userinfo = new UserInfoVO();
 				userinfo.setPassword(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			System.out.println("selectPW Error");
+			e.printStackTrace();
+		} finally {
+			closeResultSet();
+			closePreparedStatement();
+			closeConnection();
+		}
+		return userinfo;
+	}
+	
+	public UserInfoVO selectUserNum(String userID) {
+		createConnection();
+		String sql = "SELECT user_num FROM userinfo WHERE user_id=?";
+		UserInfoVO userinfo = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userinfo = new UserInfoVO();
+				userinfo.setUserNum(rs.getInt(1));
 			}
 		} catch (SQLException e) {
 			System.out.println("selectPW Error");
