@@ -36,11 +36,10 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<ArticleVO> articleList = new ArrayList<>();
-		int result = 0;
 
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "SELECT * FROM article_board LIMIT ?, ?";
+			String sql = "SELECT * FROM article_board ORDER BY article_id DESC LIMIT ?, ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, (endRow-startRow));

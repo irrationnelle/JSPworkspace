@@ -73,65 +73,58 @@ body { padding-top: 50px; }
 
 <div class="container">
   	<%
-		String pageStr = request.getParameter("page");
-		int pageNum = 1;
-		if(pageStr != null && pageStr.length()>0) { // "" <-- 이게 들어오는 걸 방지하기 위해 pageStr.length()>0 검사도 넣어준다.
-			pageNum = Integer.parseInt(pageStr);
+		String articleIDstr = request.getParameter("articleID");
+		int articleID = 0;
+		
+		if(articleIDstr != null && articleIDstr.length()>0) {
+			articleID = Integer.parseInt(articleIDstr);
 		}
 		
 		BoardService service = BoardService.getInstance();
-		ArticlePageVO articlePage = service.makePage(pageNum);
+		ArticleVO article = service.read(articleID);
+		
+		if(article == null) {
+			out.println("<h4>해당 게시글이 존재하지 않습니다.</h4>");
+		} else {
 	%>
-	<br>
-  	<a href="write_form.jsp"><button type="submit" class="btn btn-success">글쓰기</button></a>
-  	<br>
-  	<br>
-  	<table class="table table-striped">
+		<br>
+		<br>
+		<table class="table table-striped">
 		<tr>
-			<th>글번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회수</th>
+			<td>제목: </td>
+			<td>
+				<%=article.getTitle()%>
+			</td>
 		</tr>
+		<tr>
+			<td>작성자:</td>
+			<td>
+				<%=article.getWriter()%>
+			</td>
+		</tr>
+		<tr>
+			<td>조회수:</td>
+			<td>
+				<%=article.getReadCount()%>
+			</td>
+		</tr>
+		<tr>
+			<td>작성일:</td>
+			<td>
+				<%=article.getWriteDate()%>
+			</td>
+		</tr>
+		<tr>
+			<td>내용:</td>
+			<td>
+				<%=article.getContent()%>
+			</td>
+		</tr>
+		</table>
 		<%
-			if(articlePage.getArticleList().size() == 0) { 
-		%>
-			<tr>
-				<td colspan="5">아직 게시글이 존재하지 않습니다.</td>
-			</tr>
-		<%
-			} else {
-				for(ArticleVO article : articlePage.getArticleList()) {
-		%>
-					<tr>
-						<td><%=article.getArticleId()%></td>
-						<td>
-						<a href="read.jsp?articleID=<%=article.getArticleId()%>"><%=article.getTitle()%></a>
-						</td>
-						<td><%=article.getWriter()%></td>
-						<td><%=article.getWriteDate()%></td>
-						<td><%=article.getReadCount()%></td>
-					</tr>
-		<% 
-				}
 			}
 		%>
-	</table>
-	<%
-		if(articlePage.getStartPage() > 1) {
-			out.println("<a href=\"board_list.jsp?page="+(articlePage.getStartPage()-1)+"\"><span class=\"label label-success\">"+"이전"+"</span></a>");
-		}	
-	
-		for(int i=articlePage.getStartPage(); i<=articlePage.getEndPage(); i++) {
-			out.println("<a href=\"board_list.jsp?page="+i+"\"><span class=\"label label-default\">"+i+"</span></a>");			
-		}
-	
-		if(articlePage.getEndPage()< articlePage.getTotalPage()) {
-			out.println("<a href=\"board_list.jsp?page="+(articlePage.getEndPage()+1)+"\"><span class=\"label label-success\">"+"다음"+"</span></a>");
-		}
-	%>
-  </div>
+		<a href="board_list.jsp"><button class="btn btn-success">목록보기</button></a>
 </div>
 
 

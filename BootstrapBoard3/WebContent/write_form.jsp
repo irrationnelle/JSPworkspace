@@ -42,8 +42,8 @@ body { padding-top: 50px; }
             <ul class="dropdown-menu">
               <li><a href="board_list.jsp">홈</a></li>
               <li><a href="#">회원가입</a></li>
-              <li class="active"><a href="board_list.jsp">게시판</a></li>
-              <li><a href="write_form.jsp">글쓰기</a></li>
+              <li><a href="board_list.jsp">게시판</a></li>
+              <li class="active"><a href="write_form.jsp">글쓰기</a></li>
               <li><a href="#">글삭제</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">네비게이션 헤더</li>
@@ -72,66 +72,42 @@ body { padding-top: 50px; }
 </div>
 
 <div class="container">
-  	<%
-		String pageStr = request.getParameter("page");
-		int pageNum = 1;
-		if(pageStr != null && pageStr.length()>0) { // "" <-- 이게 들어오는 걸 방지하기 위해 pageStr.length()>0 검사도 넣어준다.
-			pageNum = Integer.parseInt(pageStr);
-		}
-		
-		BoardService service = BoardService.getInstance();
-		ArticlePageVO articlePage = service.makePage(pageNum);
-	%>
 	<br>
-  	<a href="write_form.jsp"><button type="submit" class="btn btn-success">글쓰기</button></a>
-  	<br>
-  	<br>
-  	<table class="table table-striped">
+  	<form action="write.jsp" method="post">
+		<table class="table table-striped">
 		<tr>
-			<th>글번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회수</th>
+			<td>제목</td>
+			<td>
+				<input class="form-control" type="text" name="title" size="30">
+			</td>
 		</tr>
-		<%
-			if(articlePage.getArticleList().size() == 0) { 
-		%>
-			<tr>
-				<td colspan="5">아직 게시글이 존재하지 않습니다.</td>
-			</tr>
-		<%
-			} else {
-				for(ArticleVO article : articlePage.getArticleList()) {
-		%>
-					<tr>
-						<td><%=article.getArticleId()%></td>
-						<td>
-						<a href="read.jsp?articleID=<%=article.getArticleId()%>"><%=article.getTitle()%></a>
-						</td>
-						<td><%=article.getWriter()%></td>
-						<td><%=article.getWriteDate()%></td>
-						<td><%=article.getReadCount()%></td>
-					</tr>
-		<% 
-				}
-			}
-		%>
-	</table>
-	<%
-		if(articlePage.getStartPage() > 1) {
-			out.println("<a href=\"board_list.jsp?page="+(articlePage.getStartPage()-1)+"\"><span class=\"label label-success\">"+"이전"+"</span></a>");
-		}	
-	
-		for(int i=articlePage.getStartPage(); i<=articlePage.getEndPage(); i++) {
-			out.println("<a href=\"board_list.jsp?page="+i+"\"><span class=\"label label-default\">"+i+"</span></a>");			
-		}
-	
-		if(articlePage.getEndPage()< articlePage.getTotalPage()) {
-			out.println("<a href=\"board_list.jsp?page="+(articlePage.getEndPage()+1)+"\"><span class=\"label label-success\">"+"다음"+"</span></a>");
-		}
-	%>
-  </div>
+		<tr>
+			<td>작성자</td>
+			<td>
+				<input class="form-control" type="text" name="writer" size="30">
+			</td>
+		</tr>
+		<tr>
+			<td>암호</td>
+			<td>
+				<input class="form-control" type="password" name="password" size="30">
+			</td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td>
+				<textarea class="form-control" rows="10" cols="30" name="content"
+					placeholder="여기에 내용을 입력하세요."></textarea>
+			</td>
+		</tr>
+		<tr>
+<!-- 			<td>작성완료</td> -->
+			<td>
+				<button type="submit" class="btn btn-success">작성완료</button>
+			</td>
+		</tr>
+		</table>
+	</form>
 </div>
 
 
