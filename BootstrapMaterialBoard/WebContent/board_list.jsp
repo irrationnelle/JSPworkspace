@@ -34,6 +34,7 @@
 			<th>작성자</th>
 			<th>작성일</th>
 			<th>조회수</th>
+			<th>설정</th>
 		</tr>
 		<%
 			if(articlePage.getArticleList().size() == 0) { 

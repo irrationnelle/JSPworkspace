@@ -1,127 +1,21 @@
+<%@page import="vo.ArticleVO"%>
+<%@page import="vo.ArticlePageVO"%>
+<%@page import="service.BoardService"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>Material Design Bootstrap</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-
-    <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/css/mdb.min.css">
-
-    <!-- Template styles -->
-    <style>
-        /* TEMPLATE STYLES */
-        
-        html,
-        body,
-        .view {
-            height: 100%;
-        }
-        /* Navigation*/
-        
-        .navbar {
-            background-color: transparent;
-        }
-        
-        .scrolling-navbar {
-            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
-            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
-            transition: background .5s ease-in-out, padding .5s ease-in-out;
-        }
-        
-        .top-nav-collapse {
-            background-color: #1C2331;
-        }
-        
-        footer.page-footer {
-            background-color: #1C2331;
-            margin-top: 2rem;
-        }
-        
-        @media only screen and (max-width: 768px) {
-            .navbar {
-                background-color: #1C2331;
-            }
-        }
-        /*Call to action*/
-        
-        .flex-center {
-            color: #fff;
-        }
-        
-        .view {
-            background: url("https://i.ytimg.com/vi/5PnOMOulrwU/maxresdefault.jpg")no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-        /*Contact section*/
-        
-        #contact .fa {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #1C2331;
-        }
-    </style>
-
+	<jsp:include page="start_header.jsp"></jsp:include>
 </head>
 
 <body>
-
-
-    <!--Navbar-->
-    <nav class="navbar navbar-dark navbar-fixed-top scrolling-navbar">
-
-        <!-- Collapse button-->
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx">
-            <i class="fa fa-bars"></i>
-        </button>
-
-        <div class="container">
-
-            <!--Collapse content-->
-            <div class="collapse navbar-toggleable-xs" id="collapseEx">
-                <!--Navbar Brand-->
-                <a class="navbar-brand" href="http://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">irrationnelle</a>
-                <!--Links-->
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about" data-toggle="modal" data-target="#modal-register" data-backdrop="false">Sign Up</a>
-                    </li>
-					
-					<jsp:include page="modal.jsp"></jsp:include>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#best-features">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-                
-            </div>
-            <!--/.Collapse content-->
-
-        </div>
-
-    </nav>
-    <!--/.Navbar-->
+	
+	<!-- Nav -->
+	<jsp:include page="start_nav.jsp"></jsp:include>
+	<!-- /.Nav -->
+    
 
     <!--Mask-->
     <div class="view hm-black-strong">
@@ -133,9 +27,9 @@
                     <p class="wow fadeInDown">by Material Design for Bootstrap 4</p>
                 </li>
                 <li>
-                    <a target="_blank" class="btn btn-primary btn-lg wow fadeInLeft" data-wow-delay="0.2s" data-toggle="modal" data-target="#modal-register" data-backdrop="false">Sign up!</a>
-                    <a target="_blank" href="#" class="btn btn-default btn-lg wow fadeInDown" data-wow-delay="0.2s">Write</a>
-                    <a href="#contact" class="btn btn-amber btn-lg wow fadeInRight" data-wow-delay="0.2s">Board</a>
+                    <a class="btn btn-primary btn-lg wow fadeInLeft" data-wow-delay="0.2s" data-toggle="modal" data-target="#modal-register" data-backdrop="false">Sign up!</a>
+                    <a class="btn btn-default btn-lg wow fadeInDown" data-wow-delay="0.2s" data-toggle="modal" data-target="#modal-write" data-backdrop="false">Write</a>
+                    <a href="#board" class="btn btn-amber btn-lg wow fadeInRight" data-wow-delay="0.2s" >Board</a>
                 </li>
             </ul>
         </div>
@@ -146,7 +40,7 @@
     <div class="container">
 		<br id="about">
         <div class="divider-new">
-            <h2 class="h2-responsive wow bounceIn" >About us</h2>
+            <h2 class="h2-responsive wow bounceIn" >About This Page</h2>
         </div>
 
         <!--Section: About-->
@@ -286,58 +180,63 @@
 
         </section>
         <!--/Section: Best features-->
-		<br id="contact">
+		<br id="board">
         <div class="divider-new">
-            <h2 class="h2-responsive wow fadeInUp">Contact us</h2>
+            <h2 class="h2-responsive wow fadeInUp">Board</h2>
         </div>
 
         <!--Section: Contact-->
         <section>
+        <%
+			String pageStr = request.getParameter("page");
+			int pageNum = 1;
+			if(pageStr != null && pageStr.length()>0) { // "" <-- 이게 들어오는 걸 방지하기 위해 pageStr.length()>0 검사도 넣어준다.
+				pageNum = Integer.parseInt(pageStr);
+			}
+			
+			BoardService service = BoardService.getInstance();
+			ArticlePageVO articlePage = service.makePage(pageNum);
+		%>
 			<table class="table">
 			    <thead>
 			        <tr>
-			            <th>#</th>
-			            <th>First Name</th>
-			            <th>Last Name</th>
-			            <th>Username</th>
-			            <th>Actions</th>
-			        </tr>
+						<th>글번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
+						<th>설정</th>
+					</tr>
 			    </thead>
 			    <tbody>
-			        <tr>
-			            <th scope="row">1</th>
-			            <td>Abby</td>
-			            <td>Barrett</td>
-			            <td>@abbeme</td>
-			            <td>
-			                <a class="blue-text"><i class="fa fa-android fa"></i></a>
-			                <a class="teal-text"><i class="fa fa-pencil fa"></i></a>
-			                <a class="red-text"><i class="fa fa-times fa"></i></a>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th scope="row">2</th>
-			            <td>Danny</td>
-			            <td>Collins</td>
-			            <td>@dennis</td>
-			            <td>
-			                <a class="blue-text"><i class="fa fa-user"></i></a>
-			                <a class="teal-text"><i class="fa fa-pencil"></i></a>
-			                <a class="red-text"><i class="fa fa-times"></i></a>
-			            </td>
-			        </tr>
-			        <tr>
-			            <th scope="row">3</th>
-			            <td>Clara</td>
-			            <td>Ericson</td>
-			            <td>@claris</td>
-			            <td>
-			               <a class="blue-text"><i class="fa fa-user"></i></a>
-			                <a class="teal-text"><i class="fa fa-pencil"></i></a>
-			                <a class="red-text"><i class="fa fa-times"></i></a>
-			            </td>
-			        </tr>
-			
+			       <%
+						if(articlePage.getArticleList().size() == 0) { 
+					%>
+						<tr>
+							<td colspan="5">아직 게시글이 존재하지 않습니다.</td>
+						</tr>
+					<%
+						} else {
+							for(ArticleVO article : articlePage.getArticleList()) {
+					%>
+								<tr>
+									<td><%=article.getArticleId()%></td>
+									<td>
+									<a href="read.jsp?articleID=<%=article.getArticleId()%>"><%=article.getTitle()%></a>
+									</td>
+									<td><%=article.getWriter()%></td>
+									<td><%=article.getWriteDate()%></td>
+									<td><%=article.getReadCount()%></td>
+									<td>
+						               <a class="blue-text"><i class="fa fa-user"></i></a>
+						               <a class="teal-text"><i class="fa fa-pencil"></i></a>
+						               <a class="red-text"><i class="fa fa-times"></i></a>
+						            </td>
+								</tr>
+					<% 
+							}
+						}
+					%>
 			    </tbody>
 			</table>
         </section>
@@ -346,147 +245,9 @@
     </div>
     <!--/ Main container-->
 
-
-
-    <!--Footer-->
-    <footer class="page-footer center-on-small-only">
-
-        <!--Footer Links-->
-        <div class="container-fluid">
-            <div class="row">
-
-                <!--First column-->
-                <div class="col-md-3 offset-md-1">
-                    <h5 class="title">ABOUT MATERIAL DESIGN</h5>
-                    <p>Material Design (codenamed Quantum Paper) is a design language developed by Google. </p>
-
-                    <p>Material Design for Bootstrap (MDB) is a powerful Material Design UI KIT for most popular HTML, CSS, and JS framework - Bootstrap.</p>
-                </div>
-                <!--/.First column-->
-
-                <hr class="hidden-md-up">
-
-                <!--Second column-->
-                <div class="col-md-2 offset-md-1">
-                    <h5 class="title">First column</h5>
-                    <ul>
-                        <li><a href="#!">Link 1</a></li>
-                        <li><a href="#!">Link 2</a></li>
-                        <li><a href="#!">Link 3</a></li>
-                        <li><a href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <!--/.Second column-->
-
-                <hr class="hidden-md-up">
-
-                <!--Third column-->
-                <div class="col-md-2">
-                    <h5 class="title">Second column</h5>
-                    <ul>
-                        <li><a href="#!">Link 1</a></li>
-                        <li><a href="#!">Link 2</a></li>
-                        <li><a href="#!">Link 3</a></li>
-                        <li><a href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <!--/.Third column-->
-
-                <hr class="hidden-md-up">
-
-                <!--Fourth column-->
-                <div class="col-md-2">
-                    <h5 class="title">Third column</h5>
-                    <ul>
-                        <li><a href="#!">Link 1</a></li>
-                        <li><a href="#!">Link 2</a></li>
-                        <li><a href="#!">Link 3</a></li>
-                        <li><a href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <!--/.Fourth column-->
-
-            </div>
-        </div>
-        <!--/.Footer Links-->
-
-        <hr>
-
-        <!--Call to action-->
-        <div class="call-to-action">
-            <h4>Material Design for Bootstrap</h4>
-            <ul>
-                <li>
-                    <h5>Get our UI KIT for free</h5></li>
-                <li><a target="_blank" href="http://mdbootstrap.com/getting-started/" class="btn btn-danger">Sign up!</a></li>
-                <li><a target="_blank" href="http://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default">Learn more</a></li>
-            </ul>
-        </div>
-        <!--/.Call to action-->
-
-        <!--Copyright-->
-        <div class="footer-copyright">
-            <div class="container-fluid">
-                	ⓒ 2015 Copyright: <a href="http://www.MDBootstrap.com"> MDBootstrap.com </a>
-
-            </div>
-        </div>
-        <!--/.Copyright-->
-
-    </footer>
-    <!--/.Footer-->
-
-
-    <!-- SCRIPTS -->
-
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap tooltips -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
-    
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/js/mdb.min.js"></script>
-
-    <!--Google Maps-->
-    <script src="http://maps.google.com/maps/api/js"></script>
-
-    <script>
-        function init_map() {
-
-            var var_location = new google.maps.LatLng(40.725118, -73.997699);
-
-            var var_mapoptions = {
-                center: var_location,
-
-                zoom: 14
-            };
-
-            var var_marker = new google.maps.Marker({
-                position: var_location,
-                map: var_map,
-                title: "New York"
-            });
-
-            var var_map = new google.maps.Map(document.getElementById("map-container"),
-                var_mapoptions);
-
-            var_marker.setMap(var_map);
-
-        }
-
-        google.maps.event.addDomListener(window, 'load', init_map);
-    </script>
-
-    <!-- Animations init-->
-    <script>
-        new WOW().init();
-    </script>
-
-
+	<!-- Footer -->
+	<jsp:include page="start_footer.jsp"></jsp:include>
+	<!-- /Footer -->
 </body>
 
 </html>
