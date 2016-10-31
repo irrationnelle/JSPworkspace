@@ -9,11 +9,6 @@
 	                    <span aria-hidden="true">&times;</span>
 	                </button>
 	                <h3><i class="fa fa-user"></i> Register with:</h3>
-<!-- 	                <a href="" class="btn-floating btn-fb btn-small"><i class="fa fa-facebook"></i></a> -->
-<!-- 	                <a href="" class="btn-floating btn-tw btn-small"><i class="fa fa-twitter"></i></a> -->
-<!-- 	                <a href="" class="btn-floating btn-gplus btn-small"><i class="fa fa-google-plus"></i></a> -->
-<!-- 	                <a href="" class="btn-floating btn-li btn-small"><i class="fa fa-linkedin"></i></a> -->
-<!-- 	                <a href="" class="btn-floating btn-git btn-small"><i class="fa fa-github"></i></a> -->
 	            </div>
 	            <!--Body-->
 	            <div class="modal-body">
