@@ -65,6 +65,8 @@
 			}
 		%>
 		<a href="board_list.jsp"><button class="btn btn-success">목록보기</button></a>
+		<a href="update_form.jsp?articleId=<%=article.getArticleId()%>"><button class="btn btn-success">수정</button></a>
+		<a href="delete_form.jsp?articleId=<%=article.getArticleId()%>"><button class="btn btn-success">삭제</button>
 </div>
 
 
