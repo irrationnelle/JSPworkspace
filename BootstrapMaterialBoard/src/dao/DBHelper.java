@@ -11,7 +11,7 @@ public class DBHelper {
 	public static Connection makeConnection() {
 		String DB_URL = "jdbc:mariadb://localhost:3306/jsp";
 		String DB_ID = "root";
-		String DB_PW = "voodoo00";
+		String DB_PW = "sds902";
 		
 		Connection con = null;
 		

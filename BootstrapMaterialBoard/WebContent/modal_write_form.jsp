@@ -1,3 +1,24 @@
+
+<script>
+	$(function() {
+		//twitter bootstrap script
+		$("button #submit").click(function() {
+			alert("test");
+			$.ajax({
+				type : "POST",
+				url : "write.jsp",
+				data : $('form.contact').serialize(),
+				success : function(msg) {
+					$("#thanks").html(msg)
+					$("#form-content").modal('hide');
+				},
+				error : function() {
+					alert("failure");
+				}
+			});
+		});
+	});
+</script>
 <!-- Modal Write -->
 <div class="modal fade modal-ext" id="modal-write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -50,22 +71,4 @@
     </div>
 </div>
 
-<script>
- $(function() {
-//twitter bootstrap script
- $("button#submit").click(function(){
-         $.ajax({
-     type: "POST",
- url: "write.jsp",
- data: $('form.contact').serialize(),
-         success: function(msg){
-                 $("#thanks").html(msg)
-        $("#form-content").modal('hide'); 
-         },
- error: function(){
- alert("failure");
- }
-       });
- });
-});
-</script>
+
