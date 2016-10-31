@@ -2,20 +2,20 @@
 	$(function() {
 		//twitter bootstrap script
 		$("#submit").click(function() {
-			alert("test2");
 			var dataVar = "writer="+$('#writer').val();
 			dataVar += "&password="+$('#password').val();
-			dataVar += 
+			dataVar += "&title="+$('#title').val();
+			dataVar += "&content="+$('#content').val();
 			$.ajax({
 				type : "POST",
 				url : "write.jsp",
 				data : dataVar,
-				success : function(msg) {
-					$("#thanks").html(msg)
-					$("#form-content").modal('hide');
+				success : function() {
+					
+					alert("Success!");
 				},
 				error : function() {
-					alert("failure");
+					alert("failure!");
 				}
 			});
 		});
@@ -62,7 +62,7 @@
 				</div>
 
 				<div class="text-xs-center">
-					<button id="submit" class="btn btn-primary">Submit</button>
+					<button id="submit" class="btn btn-primary" data-dismiss="">Submit</button>
 				</div>
 			</div>
 			<!--Footer-->

@@ -222,7 +222,7 @@
 								<tr>
 									<td><%=article.getArticleId()%></td>
 									<td>
-									<a href="read.jsp?articleID=<%=article.getArticleId()%>"><%=article.getTitle()%></a>
+									<a href="start_read.jsp?articleID=<%=article.getArticleId()%>#boardRead"><%=article.getTitle()%></a>
 									</td>
 									<td><%=article.getWriter()%></td>
 									<td><%=article.getWriteDate()%></td>
