@@ -25,12 +25,15 @@ public class BoardService {
 		int endRow = startRow+PAGE_PER_COUNT;
 		List<ArticleVO> articleList = dao.selectArticleList(startRow, endRow);
 		
-		int startPage = currentPage/10*10+1;
-		int endPage = startPage+9;
-		
 		int totalPage = dao.selectArticleCount()/PAGE_PER_COUNT;
 		if(dao.selectArticleCount()%PAGE_PER_COUNT != 0)
 			totalPage++;
+
+		int startPage = (currentPage-1)/10*10+1;
+		int endPage = startPage+9;
+		if( endPage > totalPage) {
+			endPage = totalPage;
+		}
 		
 		ArticlePageVO articlePage = new ArticlePageVO(articleList, currentPage, startPage, endPage, totalPage);
 		return articlePage;

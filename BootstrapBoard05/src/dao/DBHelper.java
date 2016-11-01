@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DBHelper {
 	public static final String DB_URL = "jdbc:mariadb://localhost:3306/jsp";
 	public static final String DB_ID = "root";
-	public static final String DB_PW = "sds902";
+	public static final String DB_PW = "voodoo00";
 	
 	public static Connection createConnection() {
 		Connection con = null;
@@ -24,7 +24,7 @@ public class DBHelper {
 		return con;
 	}
 	
-	public static void closeConnection(Connection con) {
+	public static void close(Connection con) {
 		if(con != null) {
 			try {
 				con.close();
@@ -34,7 +34,7 @@ public class DBHelper {
 		}
 	}
 	
-	public static void closeStatement(Statement stmt) {
+	public static void close(Statement stmt) {
 		if(stmt != null) {
 			try {
 				stmt.close();
@@ -44,7 +44,7 @@ public class DBHelper {
 		}
 	}
 	
-	public static void closePreparedStatement(PreparedStatement pstmt) {
+	public static void close(PreparedStatement pstmt) {
 		if(pstmt != null) {
 			try {
 				pstmt.close();
@@ -54,7 +54,7 @@ public class DBHelper {
 		}
 	}
 	
-	public static void closeResultSet(ResultSet rs) {
+	public static void close(ResultSet rs) {
 		if(rs != null) {
 			try {
 				rs.close();
