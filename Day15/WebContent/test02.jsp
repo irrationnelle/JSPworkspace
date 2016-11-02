@@ -14,6 +14,6 @@
 리스트가 비었는가? ${empty booklist } <br>
 가격 + 5000 : ${book.price + 5000 } <br>
 똑똑한 숫자 계산 : ${"10" + 5} <br>
-booklist의 크기: ${bookList.size() } <br> <!-- 자바 메소드도 사용 가능. 현재 size()메소드 호출-->
+booklist의 크기: ${bookList.size()} <br> <!-- 자바 메소드도 사용 가능. 현재 size()메소드 호출-->
 </body>
 </html>

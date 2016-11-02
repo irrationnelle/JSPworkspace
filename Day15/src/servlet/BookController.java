@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import vo.Book;
 
-@WebServlet("/bookd.do")
-public class BookControlller extends HttpServlet {
+@WebServlet("/book.do")
+public class BookController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Book b = new Book("The Black Cat", "Poe", 100);
