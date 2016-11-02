@@ -4,6 +4,8 @@
 <%@page import="service.BoardService"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +13,6 @@
 </head>
 
 <body>
-<%
-	int currentPage = 0;
-	String currentPageStr = request.getParameter("currentPage");
-	if(currentPageStr == null) {
-		currentPage = 1;
-	} else {
-		currentPage = Integer.parseInt(currentPageStr);
-	}
-	
-	BoardService service = BoardService.getInstance();
-	ArticlePageVO articlePage = service.createArticlePage(currentPage);
-%>
 <table border = "1">
 	<tr>
 		<th>글번호</th>
@@ -31,16 +21,15 @@
 		<th>개제시간</th>
 		<th>조회수</th>
 	</tr>
-	<%for(ArticleVO article : articlePage.getArticleList()) {%>
-	<tr>
-		<td><%=article.getArticleId() %></td>
-		<td><%=article.getWriter() %></td>
-		<td><%=article.getTitle() %></td>
-		<td><%=article.getWriteDate() %></td>
-		<td><%=article.getReadCount() %></td>
-	</tr>
-	<%} %>
+	<c:forEach items="${requestScope.articlePage.articleList}" var="article">
+		<tr>
+			<td>${article.articleId}</td>
+			<td>${article.writer}</td>
+			<td>${article.title}</td>
+			<td>${article.writeDate}</td>
+			<td>${article.readCount}</td>
+		</tr>
+	</c:forEach>
 </table>
-<% for(int i=articlePage.getStartPage(); i<=articlePage.getEndPage(); i++) {%> [<%=i %>] <%} %> 
 </body>
 </html>
