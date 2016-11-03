@@ -31,7 +31,7 @@ public class BoardController extends HttpServlet{
 		
 		if(action == null || action.equals("main")) {
 			int currentPage = 0;
-			String currentPageStr = request.getParameter("currentPage");
+			String currentPageStr = request.getParameter("page");
 			if(currentPageStr == null) {
 				currentPage = 1;
 			} else {

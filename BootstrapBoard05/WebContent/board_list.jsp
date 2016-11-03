@@ -31,5 +31,8 @@
 		</tr>
 	</c:forEach>
 </table>
+<c:forEach begin="${requestScope.articlePage.startPage}" end="${requestScope.articlePage.endPage}" var="i">
+	<a href="board.do?action=main&page=${i}">[${i}]</a>
+</c:forEach>
 </body>
 </html>

@@ -65,7 +65,7 @@ public class BoardDAO {
 		
 		try {
 			con = DBHelper.createConnection();
-			String sql = "SELECT * FROM article_board ORDER BY article_id DESC LIMIT ?, ?";
+			String sql = "SELECT article_id, writer, title, password, content, write_date, read_count FROM article_board ORDER BY article_id DESC LIMIT ?, ?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -93,35 +93,5 @@ public class BoardDAO {
 			DBHelper.close(con);
 		}
 		return articleList;
-	}
-
-	public int insertTest(int num) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		try {
-			con = DBHelper.createConnection();
-			String sql = "INSERT INTO article_board VALUES(?, 'tester', 'for test', '1234', 'test', now(), 0)";
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, num);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(con);
-		}
-		return result;
-	}
-	
-	public static void main(String[] args) {
-		BoardDAO dao = new BoardDAO();
-		for(int i=30; i<50; i++) {
-			dao.insertTest(i);
-		}
 	}
 }
