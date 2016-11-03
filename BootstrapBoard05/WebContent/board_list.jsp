@@ -25,7 +25,9 @@
 		<tr>
 			<td>${article.articleId}</td>
 			<td>${article.writer}</td>
-			<td>${article.title}</td>
+			<td>
+				<a href="board.do?action=read&articleId=${article.articleId}">${article.title}</a>
+			</td>
 			<td>${article.writeDate}</td>
 			<td>${article.readCount}</td>
 		</tr>

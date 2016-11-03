@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.BoardService;
 import vo.ArticlePageVO;
+import vo.ArticleVO;
 
 @WebServlet("/board.do")
 public class BoardController extends HttpServlet{
@@ -29,7 +30,10 @@ public class BoardController extends HttpServlet{
 		String action = request.getParameter("action");
 		String viewPath = "";
 		
-		if(action == null || action.equals("main")) {
+		BoardService service = BoardService.getInstance();
+		
+		switch(action) {
+		case "main":
 			int currentPage = 0;
 			String currentPageStr = request.getParameter("page");
 			if(currentPageStr == null) {
@@ -38,12 +42,23 @@ public class BoardController extends HttpServlet{
 				currentPage = Integer.parseInt(currentPageStr);
 			}
 			
-			BoardService service = BoardService.getInstance();
 			ArticlePageVO articlePage = service.createArticlePage(currentPage);
 			
 			request.setAttribute("articlePage", articlePage);
 			
 			viewPath="board_list.jsp";
+			break;
+		
+		case "read":
+			String articleIdStr = request.getParameter("articleId");
+			int articleId = Integer.parseInt(articleIdStr);
+			
+			ArticleVO article = service.read(articleId);
+			
+			request.setAttribute("article", article);
+			
+			viewPath="read.jsp";
+			break;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);

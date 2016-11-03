@@ -94,4 +94,37 @@ public class BoardDAO {
 		}
 		return articleList;
 	}
+
+	public ArticleVO selectArticle(int articleId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArticleVO article = new ArticleVO();
+
+		try {
+			con = DBHelper.createConnection();
+			String sql = "SELECT article_id, title, writer, content, write_date FROM article_board WHERE article_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {		// 완전 중요함.. ㅠㅠ
+				article.setArticleId(rs.getInt(1));
+				article.setTitle(rs.getString(2));
+				article.setWriter(rs.getString(3));
+				article.setContent(rs.getString(4));
+				article.setWriteDate(rs.getTimestamp(5));
+			};
+		} catch (SQLException e) {
+			System.out.println("selectArticle Fail!");
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		
+		return article;
+	}
 }

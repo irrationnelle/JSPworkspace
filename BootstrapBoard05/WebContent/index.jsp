@@ -6,6 +6,6 @@
 <title>Welcome!</title>
 </head>
 <body>
-<a href="board.do"><button>메인으로</button></a>
+<a href="board.do?action=main"><button>메인으로</button></a>
 </body>
 </html>

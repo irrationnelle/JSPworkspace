@@ -38,4 +38,9 @@ public class BoardService {
 		ArticlePageVO articlePage = new ArticlePageVO(articleList, currentPage, startPage, endPage, totalPage);
 		return articlePage;
 	}
+	
+	public ArticleVO read(int articleId) {
+		ArticleVO article = dao.selectArticle(articleId);
+		return article;
+	}
 }
