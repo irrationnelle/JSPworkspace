@@ -59,6 +59,24 @@ public class BoardController extends HttpServlet{
 			
 			viewPath="read.jsp";
 			break;
+		
+		case "writeForm":
+			viewPath="write_form.jsp";
+			break;
+		
+		case "write":
+			request.setCharacterEncoding("euc-kr");
+			
+			String title = request.getParameter("title");
+			String writer = request.getParameter("writer");
+			String password = request.getParameter("password");
+			String content = request.getParameter("content");
+			
+			int result = service.write(title, writer, password, content);
+			
+			viewPath="board.do?action=main";
+			System.out.println("글쓰기 결과: "+result);
+			break;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);

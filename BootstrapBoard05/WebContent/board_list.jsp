@@ -36,5 +36,7 @@
 <c:forEach begin="${requestScope.articlePage.startPage}" end="${requestScope.articlePage.endPage}" var="i">
 	<a href="board.do?action=main&page=${i}">[${i}]</a>
 </c:forEach>
+<br>
+<a href="board.do?action=writeForm"><button>±Û¾²±â</button></a>
 </body>
 </html>

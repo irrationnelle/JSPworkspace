@@ -43,4 +43,16 @@ public class BoardService {
 		ArticleVO article = dao.selectArticle(articleId);
 		return article;
 	}
+	
+	public int write(String title, String writer, String password, String content) {
+		ArticleVO article = new ArticleVO();
+		article.setTitle(title);
+		article.setWriter(writer);
+		article.setPassword(password);
+		article.setContent(content);
+		article.setReadCount(0);
+		
+		int result = dao.insert(article);
+		return result;
+	}
 }

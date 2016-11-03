@@ -127,4 +127,30 @@ public class BoardDAO {
 		
 		return article;
 	}
+
+	public int insert(ArticleVO article) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			con = DBHelper.createConnection();
+			String sql = "INSERT INTO article_board (title, password, content, writer, read_count, write_date) "
+					+ "VALUES (?, ?, ?, ?, ?, now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, article.getTitle());
+			pstmt.setString(2, article.getPassword());
+			pstmt.setString(3, article.getContent());
+			pstmt.setString(4, article.getWriter());
+			pstmt.setInt(5, article.getReadCount());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("insert Fail!");
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		return result;
+	}
 }
