@@ -19,7 +19,7 @@ public class DBUtil {
 			Class.forName(DRIVER_NAME);
 			System.out.println("Driver Loading Complete!");
 			con = DriverManager.getConnection(DB_URL, DB_ID, DB_PW);
-			System.out.println("Connection Creation Error!");
+			System.out.println("Connection Creation Complete!");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Driver Loading Error!");
 			e.printStackTrace();
