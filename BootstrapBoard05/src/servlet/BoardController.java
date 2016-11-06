@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.BoardService;
 import vo.ArticlePageVO;
@@ -31,6 +32,16 @@ public class BoardController extends HttpServlet{
 		String viewPath = "";
 		
 		BoardService service = BoardService.getInstance();
+		ArticleVO article = null;
+		
+		String articleIdStr = null;
+		int articleId = 0;
+		String title = null;
+		String writer = null;
+		String password = null;
+		String content = null;
+		
+		int result = -1;
 		
 		switch(action) {
 		case "main":
@@ -50,10 +61,10 @@ public class BoardController extends HttpServlet{
 			break;
 		
 		case "read":
-			String articleIdStr = request.getParameter("articleId");
-			int articleId = Integer.parseInt(articleIdStr);
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
 			
-			ArticleVO article = service.read(articleId);
+			article = service.read(articleId);
 			
 			request.setAttribute("article", article);
 			
@@ -67,15 +78,59 @@ public class BoardController extends HttpServlet{
 		case "write":
 			request.setCharacterEncoding("euc-kr");
 			
-			String title = request.getParameter("title");
-			String writer = request.getParameter("writer");
-			String password = request.getParameter("password");
-			String content = request.getParameter("content");
+			title = request.getParameter("title");
+			writer = request.getParameter("writer");
+			password = request.getParameter("password");
+			content = request.getParameter("content");
 			
-			int result = service.write(title, writer, password, content);
+			result = service.write(title, writer, password, content);
 			
 			viewPath="board.do?action=main";
 			System.out.println("글쓰기 결과: "+result);
+			break;
+			
+		case "updateForm":
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
+			article = service.readWithoutReadCount(articleId);
+
+			request.setAttribute("article", article);
+			viewPath = "update_form.jsp";
+			break;
+			
+		case "update":
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
+			title = request.getParameter("title");
+			writer = request.getParameter("writer");
+			password = request.getParameter("password");
+			content = request.getParameter("content");
+			
+			result = service.modify(articleId, title, writer, password, content);
+			
+			viewPath = "board.do?action=main";
+			System.out.println("글수정 결과: "+result);
+			break;
+		
+		case "deleteForm":
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
+			
+			article = service.readWithoutReadCount(articleId);
+			
+			request.setAttribute("article", article);
+			
+			viewPath="delete_form.jsp";
+			break;
+			
+		case "delete":
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
+			password = request.getParameter("password");
+			
+			result = service.delete(articleId, password);
+			viewPath="board.do?action=main";
+			System.out.println("글삭제 결과: "+result);
 			break;
 		}
 		

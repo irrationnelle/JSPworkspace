@@ -30,8 +30,8 @@
 			<td>${requestScope.article.content}</td>
 		</tr>
 	</table>
-	<a href=""><button>목록보기</button></a>
-	<a href=""><button>글수정</button></a>
-	<a href=""><button>글삭제</button></a>
+	<a href="board.do?action=main"><button>목록보기</button></a>
+	<a href="board.do?action=updateForm&articleId=${requestScope.article.articleId}"><button>글수정</button></a>
+	<a href="board.do?action=deleteForm&articleId=${requestScope.article.articleId}"><button>글삭제</button></a>
 </body>
 </html>

@@ -40,6 +40,15 @@ public class BoardService {
 	}
 	
 	public ArticleVO read(int articleId) {
+		ArticleVO article = null;
+		
+		if(dao.updateReadCount(articleId) > 0) {
+			article = dao.selectArticle(articleId);
+		}
+		return article;
+	}
+	
+	public ArticleVO readWithoutReadCount(int articleId) {
 		ArticleVO article = dao.selectArticle(articleId);
 		return article;
 	}
@@ -55,4 +64,39 @@ public class BoardService {
 		int result = dao.insert(article);
 		return result;
 	}
+	
+	public int modify(int articleId, String title, String writer, String password, String content) {
+		int result = 0;
+		
+		System.out.println(articleId);
+		ArticleVO original = dao.selectArticle(articleId);
+		ArticleVO article = new ArticleVO();
+		
+		article.setArticleId(articleId);
+		article.setTitle(title);
+		article.setWriter(writer);
+		article.setPassword(password);
+		article.setContent(content);
+		
+		System.out.println(original.getPassword());
+		System.out.println(article.getPassword());
+		
+		if(original.getPassword().equals(article.getPassword())) {
+			result = dao.update(article);
+		} else {
+			System.out.println("Password is not correct");
+		}
+		
+		return result;
+	}
+	
+	public int delete(int articleId, String password) {
+		ArticleVO original = dao.selectArticle(articleId);
+		int result = 0;
+		if(original.getPassword().equals(password)) {
+			result = dao.delete(articleId);
+		}
+		return result;
+	}
+	
 }

@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBHelper {
-	public static final String DB_URL = "jdbc:mariadb://70.12.109.123:3306/jsp";
+	public static final String DB_URL = "jdbc:mariadb://localhost:3306/jsp";
 	public static final String DB_ID = "root";
 	public static final String DB_PW = "sds902";
 	

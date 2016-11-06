@@ -103,7 +103,7 @@ public class BoardDAO {
 
 		try {
 			con = DBHelper.createConnection();
-			String sql = "SELECT article_id, title, writer, content, write_date FROM article_board WHERE article_id=?";
+			String sql = "SELECT article_id, title, writer, content, write_date, password FROM article_board WHERE article_id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleId);
 			
@@ -115,6 +115,7 @@ public class BoardDAO {
 				article.setWriter(rs.getString(3));
 				article.setContent(rs.getString(4));
 				article.setWriteDate(rs.getTimestamp(5));
+				article.setPassword(rs.getString(6));
 			};
 		} catch (SQLException e) {
 			System.out.println("selectArticle Fail!");
@@ -146,6 +147,76 @@ public class BoardDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("insert Fail!");
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		return result;
+	}
+	
+	public int update(ArticleVO article) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			con = DBHelper.createConnection();
+			String sql = "UPDATE article_board SET title=?, writer=?, content=? WHERE article_id=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, article.getTitle());
+			pstmt.setString(2, article.getWriter());
+			pstmt.setString(3, article.getContent());
+			pstmt.setInt(4, article.getArticleId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("update Fail!");
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		
+		return result;
+	}
+	
+	public int updateReadCount(int articleId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			con = DBHelper.createConnection();
+			String sql = "UPDATE article_board SET read_count = read_count+1 WHERE article_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		
+		return result;
+	}
+	
+	public int delete(int articleId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			con = DBHelper.createConnection();
+			String sql = "DELETE FROM article_board WHERE article_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delete Fail!");
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(pstmt);
