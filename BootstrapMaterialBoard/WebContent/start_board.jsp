@@ -18,7 +18,8 @@
 	  <!--Mask-->
 	  <jsp:include page="start_mask.jsp"></jsp:include>
 	  <!--/.Mask-->
-	
+		<br id="board">
+		<br>
 		<table class="table">
 		    <thead>
 		        <tr>
@@ -49,7 +50,8 @@
 								<td>${article.readCount }</td>
 								<td>
 					               <a class="blue-text"><i class="fa fa-user"></i></a>
-					               <a class="teal-text"><i class="fa fa-pencil"></i></a>
+					               <a href="board.do?action=updateWithoutRead&articleId=${article.articleId}" class="teal-text" data-toggle="modal" data-target="#modal-update" data-backdrop="false" class="btn btn-mdb" id="update"><i class="fa fa-pencil"></i>
+					               </a>
 					               <a class="red-text"><i class="fa fa-times"></i></a>
 					            </td>
 							</tr>
@@ -58,6 +60,8 @@
 			</c:choose>
 		    </tbody>
 		</table>
+		
+		<jsp:include page="modal_update.jsp"></jsp:include>
 		
 		<!-- Footer -->
 		<jsp:include page="start_footer.jsp"></jsp:include>

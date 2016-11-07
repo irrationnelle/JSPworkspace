@@ -12,7 +12,14 @@ public class BoardDAO {
 	public static BoardDAO getInstance(){
 		return instance;
 	}
-	private BoardDAO(){	}
+	private BoardDAO(){	
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩오류");
+			e.printStackTrace();
+		}
+	}
 	
 	public List<ArticleVO> selectArticleList(int startRow,int endRow){
 		Connection con = null;
@@ -170,13 +177,14 @@ public class BoardDAO {
 			con = DBHelper.makeConnection();
 			String sql = 
 					  "UPDATE ARTICLE_BOARD "
-					+ "SET TITLE=?, CONTENT=? "
+					+ "SET TITLE=?, CONTENT=?, WRITER=? "
 					+ "WHERE ARTICLE_ID=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getContent());
-			pstmt.setInt(3, article.getArticleId());
+			pstmt.setString(3, article.getWriter());
+			pstmt.setInt(4, article.getArticleId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

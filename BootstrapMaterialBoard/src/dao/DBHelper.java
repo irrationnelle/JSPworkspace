@@ -17,7 +17,6 @@ public class DBHelper {
 		
 		try {
 			con = DriverManager.getConnection(DB_URL, DB_ID, DB_PW);
-			System.out.println("Connection Construction Complete!");
 		} catch (SQLException e) {
 			System.out.println("Connection Construction Fail!");
 			e.printStackTrace();

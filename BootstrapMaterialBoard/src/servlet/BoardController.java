@@ -41,11 +41,19 @@ public class BoardController extends HttpServlet {
 		int articleId = 0;
 		int result = -1;
 		ArticleVO article = null;
+		String title = null;
+		String writer = null;
+		String content = null;
+		String password = null;
 		
 		switch(action){
 		
 		case "main":
 			viewPath = "start_template_encode.jsp";
+			break;
+			
+		case "refresh":
+			viewPath = "board.do?action=board";
 			break;
 		
 		case "board":
@@ -70,13 +78,56 @@ public class BoardController extends HttpServlet {
 			viewPath = "start_read.jsp";
 			break;
 			
-		case "updateForm":
+		case "update":
+			request.setCharacterEncoding("euc-kr");	
+			
+			title = request.getParameter("title");
+			writer = request.getParameter("writer");
+			content = request.getParameter("content");
+			password = request.getParameter("password");
 			articleIdStr = request.getParameter("articleId");
 			articleId = Integer.parseInt(articleIdStr);
 			
-			article = service.readWithoutReadCount(articleId);
+			article = new ArticleVO();
+			article.setTitle(title);
+			article.setWriter(writer);
+			article.setContent(content);
+			article.setPassword(password);
+			article.setArticleId(articleId);
 			
-			viewPath="start_update_form.jsp";
+			result = service.modify(article);
+			
+			System.out.println("글수정결과: "+result);
+			break;
+			
+		case "updateWithoutRead":
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
+			
+			article = service.read(articleId);
+			request.setAttribute("article", article);
+			break;
+			
+		case "delete":
+			
+			title = request.getParameter("title");
+			writer = request.getParameter("writer");
+			content = request.getParameter("content");
+			password = request.getParameter("password");
+			articleIdStr = request.getParameter("articleId");
+			articleId = Integer.parseInt(articleIdStr);
+			
+			article = new ArticleVO();
+			article.setTitle(title);
+			article.setWriter(writer);
+			article.setContent(content);
+			article.setPassword(password);
+			article.setArticleId(articleId);
+			
+			result = service.delete(article);
+			
+			System.out.println("글삭제결과: "+result);
+			break;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);

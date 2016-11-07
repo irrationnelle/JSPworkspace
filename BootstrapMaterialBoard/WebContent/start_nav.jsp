@@ -15,22 +15,28 @@
                 <!--Links-->
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a href="board.do?action=main" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about" data-toggle="modal" data-target="#modal-register" data-backdrop="false">Sign Up</a>
+                        <a class="nav-link" data-toggle="modal" data-target="#modal-signup" data-backdrop="false">Sign Up</a>
                     </li>
 					
 					<jsp:include page="modal_signup.jsp"></jsp:include>
+					
+					<li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#modal-login" data-backdrop="false">Login</a>
+                    </li>
+                    
+                    <jsp:include page="modal_login.jsp"></jsp:include>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="#best-features" data-toggle="modal" data-target="#modal-write" data-backdrop="false">Write</a>
+                        <a class="nav-link" data-toggle="modal" data-target="#modal-write" data-backdrop="false">Write</a>
                     </li>
                     
                     <jsp:include page="modal_write_form.jsp"></jsp:include>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="start_board.jsp">Board</a>
+                        <a class="nav-link" href="board.do?action=board#board">Board</a>
                     </li>
                 </ul>
                 

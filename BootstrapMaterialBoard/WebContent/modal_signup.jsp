@@ -1,5 +1,33 @@
-<!-- Modal Register -->
-	<div class="modal fade modal-ext" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<script>
+	$(function() {
+		//twitter bootstrap script
+		$("#submitSignup").click(function() {
+			var dataVar = "id="+$('#idSignup').val();
+			if($('#passwordSignup').val() == $('#verifySignup').val()) {
+				dataVar += "&password="+$('#passwordSignup').val();
+			} else {
+				return false;
+			}
+			dataVar += "&name="+$('#nameSignup').val();
+			dataVar += "&email="+$('#emailSignup').val();
+			$.ajax({
+				type : "POST",
+				url : "member.do?action=signup",
+				data : dataVar,
+				success : function(data){
+					alert("Sign up Success!");
+					location.href="board.do?action=main";
+				},
+				error : function(data){
+					alert("update fail!");
+				}
+			});
+		});
+	});
+</script>
+
+<!-- Modal SignUp -->
+	<div class="modal fade modal-ext" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog" role="document">
 	        <!--Content-->
 	        <div class="modal-content">
@@ -14,24 +42,36 @@
 	            <div class="modal-body">
 	                <div class="md-form">
 	                    <i class="fa fa-pencil prefix"></i>
-	                    <input type="text" id="form2" class="form-control">
-	                    <label for="form2">Your ID</label>
+	                    <input type="text" id="idSignup" class="form-control">
+	                    <label for="id">Your ID</label>
 	                </div>
 	
 	                <div class="md-form">
 	                    <i class="fa fa-lock prefix"></i>
-	                    <input type="password" id="form3" class="form-control">
-	                    <label for="form3">Your password</label>
+	                    <input type="password" id="passwordSignup" class="form-control">
+	                    <label for="password">Your password</label>
 	                </div>
 	
 	                <div class="md-form">
 	                    <i class="fa fa-lock prefix"></i>
-	                    <input type="password" id="form4" class="form-control">
-	                    <label for="form4">Repeat password</label>
+	                    <input type="password" id="verifySignup" class="form-control">
+	                    <label for="verify">Repeat password</label>
+	                </div>
+	                
+	                <div class="md-form">
+	                    <i class="fa fa-user prefix"></i>
+	                    <input type="text" id="nameSignup" class="form-control">
+	                    <label for="name">Your name</label>
+	                </div>
+	                
+	                <div class="md-form">
+	                    <i class="fa fa-envelope prefix"></i>
+	                    <input type="email" id="emailSignup" class="form-control">
+	                    <label for="email">Your e-mail address</label>
 	                </div>
 	
 	                <div class="text-xs-center">
-	                    <button class="btn btn-primary btn-lg">Sign up</button>
+	                    <button type="submit" class="btn btn-primary btn-lg" id="submitSignup">Sign up</button>
 	                </div>
 	            </div>
 	            <!--Footer-->
@@ -45,4 +85,4 @@
 	        <!--/.Content-->
 	    </div>
 	</div>
-<!-- /.Modal Register -->
+<!-- /.Modal SignUp -->

@@ -33,7 +33,7 @@
 		
 <!-- 		<a href="board_list.jsp"><button>목록으로</button></a> -->
 		<%
-			response.sendRedirect("board_list.jsp");
+			response.sendRedirect("board.do?action=board");
 		%>
 	</body>
 </html>
