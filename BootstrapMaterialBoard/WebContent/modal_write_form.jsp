@@ -9,14 +9,7 @@
 			$.ajax({
 				type : "POST",
 				url : "write.jsp",
-				data : dataVar,
-				success : function() {
-					
-					alert("Success!");
-				},
-				error : function() {
-					alert("failure!");
-				}
+				data : dataVar
 			});
 		});
 	});

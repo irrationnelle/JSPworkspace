@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class DBHelper {
 	public static Connection makeConnection() {
-		String DB_URL = "jdbc:mariadb://localhost:3306/jsp";
+		String DB_URL = "jdbc:mariadb://70.12.109.123:3306/jsp";
 		String DB_ID = "root";
 		String DB_PW = "sds902";
 		

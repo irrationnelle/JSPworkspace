@@ -1,51 +1,37 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import vo.ArticleVO;
 
 public class BoardDAO {
-	// 객체를 하나만 만들어서 재사용하는 싱글턴(Singleton) 패턴 적용
-	private static BoardDAO instance;
-	public static BoardDAO getInstance() {
-		if(instance == null)
-			instance = new BoardDAO();
+	// 객체를 하나만 만들어서 재사용하는 싱글턴(singleton) 패턴적용
+	private static BoardDAO instance = new BoardDAO();
+	public static BoardDAO getInstance(){
 		return instance;
 	}
+	private BoardDAO(){	}
 	
-	private final String DB_DRIVER = "org.mariadb.jdbc.Driver";
-	
-	private BoardDAO() {
-		try {
-			Class.forName(DB_DRIVER);
-			System.out.println("Driver Loading Complete!");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver Loading Error!");
-			e.printStackTrace();
-		}
-	}
-	
-	public List<ArticleVO> selectArticleList(int startRow, int endRow) {
+	public List<ArticleVO> selectArticleList(int startRow,int endRow){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<ArticleVO> articleList = new ArrayList<>();
-
+		
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "SELECT * FROM article_board ORDER BY article_id DESC LIMIT ?, ?";
+			String sql = "SELECT * FROM ARTICLE_BOARD "
+					+ "ORDER BY ARTICLE_ID DESC "
+					+ "LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
+			
 			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, (endRow-startRow));
+			pstmt.setInt(2, endRow-startRow); // limit의 두번째는 개수
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
+			while(rs.next()){
 				ArticleVO article = new ArticleVO();
 				article.setArticleId(rs.getInt(1));
 				article.setTitle(rs.getString(2));
@@ -58,9 +44,9 @@ public class BoardDAO {
 				articleList.add(article);
 			}
 		} catch (SQLException e) {
-			System.out.println("DAO insert Error!");
+			System.out.println("DAO insert 에러");
 			e.printStackTrace();
-		} finally {
+		} finally{
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(con);
@@ -68,7 +54,7 @@ public class BoardDAO {
 		return articleList;
 	}
 
-	public int selectArticleCount() {
+	public int selectArticleCount(){
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -76,7 +62,7 @@ public class BoardDAO {
 		
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "SELECT COUNT(*) FROM article_board";
+			String sql = "SELECT COUNT(*) FROM ARTICLE_BOARD";
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			
@@ -85,22 +71,21 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return articleCount;
 	}
 
-	public int insert(ArticleVO article) {
+	public int insert(ArticleVO article){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+				
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "INSERT INTO article_board " +
-						 "(title, content, writer, read_count, write_date, password) " +
-						 "VALUES(?, ?, ?, ?, now(), ?)"; 
+			String sql = "INSERT INTO ARTICLE_BOARD "
+			+"(TITLE,CONTENT,WRITER,READ_COUNT,WRITE_DATE,PASSWORD)"
+			+"VALUES(?,?,?,?,now(),?)";
+
 			pstmt = con.prepareStatement(sql);
-			
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getContent());
 			pstmt.setString(3, article.getWriter());
@@ -114,11 +99,10 @@ public class BoardDAO {
 			DBHelper.close(pstmt);
 			DBHelper.close(con);
 		}
-		
 		return result;
 	}
 
-	public ArticleVO selectArticle(int articleID) {
+	public ArticleVO selectArticle(int articleId){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -126,13 +110,13 @@ public class BoardDAO {
 		
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "SELECT * FROM article_board WHERE article_id=?";
+			String sql = 
+				"SELECT * FROM ARTICLE_BOARD WHERE ARTICLE_ID=?";
 			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, articleID);
+			pstmt.setInt(1, articleId);
 			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if(rs.next()){
 				article = new ArticleVO();
 				article.setArticleId(rs.getInt(1));
 				article.setTitle(rs.getString(2));
@@ -143,34 +127,87 @@ public class BoardDAO {
 				article.setPassword(rs.getString(7));
 			}
 		} catch (SQLException e) {
-			System.out.println("selectArticle Error!");
+			System.out.println("selectArticle 에러");
 			e.printStackTrace();
-		} finally {
+		} finally{
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(con);
 		}
-		
 		return article;
 	}
-
-	public int updateReadCount(int articleID) {
+	
+	public int updateReadCount(int articleId){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "UPDATE article_board SET read_count=read_count+1 " +
-					"WHERE article_id=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, articleID);
+			String sql = 
+				"UPDATE ARTICLE_BOARD SET READ_COUNT=READ_COUNT+1 "
+					+ " WHERE ARTICLE_ID=?";
 			
-			result = pstmt.executeUpdate();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleId);
+			result = pstmt.executeUpdate();			
 		} catch (SQLException e) {
 			System.out.println("updateReadCount 에러");
 			e.printStackTrace();
-		} finally {
+		} finally{
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		return result;
+	}
+
+	public int update(ArticleVO article){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			con = DBHelper.makeConnection();
+			String sql = 
+					  "UPDATE ARTICLE_BOARD "
+					+ "SET TITLE=?, CONTENT=? "
+					+ "WHERE ARTICLE_ID=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, article.getTitle());
+			pstmt.setString(2, article.getContent());
+			pstmt.setInt(3, article.getArticleId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("update 에러");
+			e.printStackTrace();
+		} finally{
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		return result;
+	}
+
+	public int delete(ArticleVO article) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			con = DBHelper.makeConnection();
+			String sql = 
+					  "DELETE FROM article_board "
+					+ "WHERE ARTICLE_ID=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, article.getArticleId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delete 에러");
+			e.printStackTrace();
+		} finally{
 			DBHelper.close(pstmt);
 			DBHelper.close(con);
 		}

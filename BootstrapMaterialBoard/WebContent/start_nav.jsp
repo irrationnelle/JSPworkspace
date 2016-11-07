@@ -30,7 +30,7 @@
                     <jsp:include page="modal_write_form.jsp"></jsp:include>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="#board">Board</a>
+                        <a class="nav-link" href="start_board.jsp">Board</a>
                     </li>
                 </ul>
                 
