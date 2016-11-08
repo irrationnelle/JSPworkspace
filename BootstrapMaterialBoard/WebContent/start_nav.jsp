@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Navbar-->
     <nav class="navbar navbar-dark navbar-fixed-top scrolling-navbar">
 
@@ -17,17 +19,27 @@
                     <li class="nav-item">
                         <a href="board.do?action=main" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#modal-signup" data-backdrop="false">Sign Up</a>
-                    </li>
-					
-					<jsp:include page="modal_signup.jsp"></jsp:include>
-					
-					<li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#modal-login" data-backdrop="false">Login</a>
-                    </li>
                     
-                    <jsp:include page="modal_login.jsp"></jsp:include>
+                    <c:choose>
+           				<c:when test="${empty sessionScope.id}">
+		                    <li class="nav-item">
+		                        <a class="nav-link" data-toggle="modal" data-target="#modal-signup" data-backdrop="false">Sign Up</a>
+		                    </li>
+							
+							<jsp:include page="modal_signup.jsp"></jsp:include>
+							
+							<li class="nav-item">
+		                        <a class="nav-link" data-toggle="modal" data-target="#modal-login" data-backdrop="false">Login</a>
+		                    </li>
+		                    
+		                    <jsp:include page="modal_login.jsp"></jsp:include>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="nav-item">
+		                        <a href="member.do?action=logout" class="nav-link">Logout</a>
+		                    </li>
+                    	</c:otherwise>
+                    </c:choose>
                     
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="modal" data-target="#modal-write" data-backdrop="false">Write</a>

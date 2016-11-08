@@ -1,17 +1,15 @@
 <script>
 	$(function() {
 		//twitter bootstrap script
-		$("#submit").click(function() {
-			var dataVar = "writer="+$('#writer').val();
-			dataVar += "&password="+$('#password').val();
-			dataVar += "&title="+$('#title').val();
-			dataVar += "&content="+$('#content').val();
+		$("#submitLogin").click(function() {
+			var dataVar = "id="+$('#idLogin').val();
+			dataVar += "&password="+$('#passwordLogin').val();
 			$.ajax({
 				type : "POST",
-				url : "write.jsp",
+				url : "member.do?action=login",
 				data : dataVar,
 				success : function(data){
-					location.href="board.do?action=refresh#board";
+					location.href="board.do?action=main";
 				},
 				error : function(data){
 					alert("update fail!");
@@ -39,17 +37,17 @@
             <div class="modal-body">
                 <div class="md-form">
                     <i class="fa fa-pencil prefix"></i>
-                    <input type="text" id="form2" class="form-control">
-                    <label for="form2">Your ID</label>
+                    <input type="text" id="idLogin" class="form-control">
+                    <label for="idLogin">Your ID</label>
                 </div>
 
                 <div class="md-form">
                     <i class="fa fa-lock prefix"></i>
-                    <input type="password" id="form3" class="form-control">
-                    <label for="form3">Your password</label>
+                    <input type="password" id="passwordLogin" class="form-control">
+                    <label for="passwordLogin">Your password</label>
                 </div>
                 <div class="text-xs-center">
-                    <button class="btn btn-primary btn-lg">Login</button>
+                    <button type="submit" class="btn btn-primary btn-lg" id="submitLogin">Login</button>
                 </div>
             </div>
             

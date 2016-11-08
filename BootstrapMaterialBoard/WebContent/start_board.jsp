@@ -61,6 +61,11 @@
 		    </tbody>
 		</table>
 		
+		<c:forEach begin="${articlePage.startPage}" end="${articlePage.endPage}" var="i">
+			<a href="board.do?action=board&page=${i}#board" class="btn btn-unique btn-rounded">${i}</a>
+			
+		</c:forEach>
+		
 		<jsp:include page="modal_update.jsp"></jsp:include>
 		
 		<!-- Footer -->

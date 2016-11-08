@@ -15,28 +15,16 @@ public class MemberService {
 	MemberDAO dao = MemberDAO.getInstance();
 	
 	public int signup(MemberVO member){
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		try {
-			con = DBHelper.makeConnection();
-			String sql = "INSERT INTO member VALUES(?, ?, ?, ?)";
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPassword());
-			pstmt.setString(3, member.getName());
-			pstmt.setString(4, member.getEmail());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("signup Fail!");
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(con);
-		}
+		int result = dao.insert(member);
 		return result;
+	}
+	
+	public boolean login(MemberVO member) {
+		boolean isLogin = false;
+		MemberVO original = dao.selectMember(member.getId());
+		if(original.getPassword().equals(member.getPassword())) {
+			isLogin = true;
+		}
+		return isLogin;
 	}
 }
