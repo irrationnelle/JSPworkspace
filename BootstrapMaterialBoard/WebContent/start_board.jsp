@@ -45,7 +45,7 @@
 								<td>
 								<a href="board.do?action=read&articleId=${article.articleId}#boardRead">${article.title}</a>
 								</td>
-								<td>${article.writer }</td>
+								<td>${article.id }</td>
 								<td>${article.writeDate }</td>
 								<td>${article.readCount }</td>
 								<td>
@@ -61,9 +61,8 @@
 		    </tbody>
 		</table>
 		
-		<c:forEach begin="${articlePage.startPage}" end="${articlePage.endPage}" var="i">
+		<c:forEach begin="${requestScope.articlePage.startPage}" end="${requestScope.articlePage.endPage}" var="i">
 			<a href="board.do?action=board&page=${i}#board" class="btn btn-unique btn-rounded">${i}</a>
-			
 		</c:forEach>
 		
 		<jsp:include page="modal_update.jsp"></jsp:include>

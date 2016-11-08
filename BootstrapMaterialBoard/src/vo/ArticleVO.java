@@ -1,37 +1,33 @@
 package vo;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class ArticleVO {
-	private int articleId; 		// 글번호
-	private String title;		// 글제목
-	private String content;		// 내용
-	private int readCount;		// 조회수
-	
-	private String password;	// 글 비밀번호
-	private String writer;		// 작성자
-	private Timestamp writeDate;// 작성일시
-	
-	public ArticleVO(){	}
-	
-	public ArticleVO(String title, String content, int readCount, String password, String writer) {
-		this.title = title;
-		this.content = content;
-		this.readCount = readCount;
-		this.password = password;
-		this.writer = writer;
+	private int articleId;
+	private String title;
+	private String id;
+	private String content;
+	private Date writeDate;
+	private int readCount;
+//////////////////////////////////////////////////////////
+	public ArticleVO(){
 	}
-	public ArticleVO(int articleId, String title, String content, int readCount, String password, String writer,
-			Timestamp writeDate) {
+	public ArticleVO(String title, String id, String content, Date writeDate, int readCount) {
+		this.title = title;
+		this.id = id;
+		this.content = content;
+		this.writeDate = writeDate;
+		this.readCount = readCount;
+	}
+	public ArticleVO(int articleId, String title, String id, String content, Date writeDate, int readCount) {
 		this.articleId = articleId;
 		this.title = title;
+		this.id = id;
 		this.content = content;
-		this.readCount = readCount;
-		this.password = password;
-		this.writer = writer;
 		this.writeDate = writeDate;
+		this.readCount = readCount;
 	}
-	
+///////////////////////////////////////////////////////////
 	public int getArticleId() {
 		return articleId;
 	}
@@ -44,11 +40,23 @@ public class ArticleVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public Date getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
 	}
 	public int getReadCount() {
 		return readCount;
@@ -56,23 +64,10 @@ public class ArticleVO {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-	public String getPassword() {
-		return password;
+//////////////////////////////////////////////////////////////
+	@Override
+	public String toString() {
+		return "ArticleVO [articleId=" + articleId + ", title=" + title + ", id=" + id + ", content=" + content
+				+ ", writeDate=" + writeDate + ", readCount=" + readCount + "]";
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public Timestamp getWriteDate() {
-		return writeDate;
-	}
-	public void setWriteDate(Timestamp writeDate) {
-		this.writeDate = writeDate;
-	}
-	
 }

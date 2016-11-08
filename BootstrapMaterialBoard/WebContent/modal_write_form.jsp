@@ -2,13 +2,11 @@
 	$(function() {
 		//twitter bootstrap script
 		$("#submit").click(function() {
-			var dataVar = "writer="+$('#writer').val();
-			dataVar += "&password="+$('#password').val();
-			dataVar += "&title="+$('#title').val();
+			var dataVar = "&title="+$('#title').val();
 			dataVar += "&content="+$('#content').val();
 			$.ajax({
 				type : "POST",
-				url : "write.jsp",
+				url : "board.do?action=write",
 				data : dataVar,
 				success : function(data){
 					location.href="board.do?action=refresh#board";
@@ -37,18 +35,6 @@
 			</div>
 			<!--Body-->
 			<div class="modal-body">
-				<div class="md-form">
-					<i class="fa fa-user prefix"></i> <input type="text" id="writer"
-						class="form-control"> <label for="writer">Your
-						name</label>
-				</div>
-
-				<div class="md-form">
-					<i class="fa fa-lock prefix"></i> <input type="password"
-						id="password" class="form-control"> <label for="password">Your
-						password</label>
-				</div>
-
 				<div class="md-form">
 					<i class="fa fa-tag prefix"></i> <input type="text" id="title"
 						class="form-control"> <label for="title">Subject</label>

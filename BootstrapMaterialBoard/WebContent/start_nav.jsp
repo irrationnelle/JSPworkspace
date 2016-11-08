@@ -38,14 +38,14 @@
                     		<li class="nav-item">
 		                        <a href="member.do?action=logout" class="nav-link">Logout</a>
 		                    </li>
+		                    
+		                    <li class="nav-item">
+                        		<a class="nav-link" data-toggle="modal" data-target="#modal-write" data-backdrop="false">Write</a>
+                    		</li>
+                    		
+                    		<jsp:include page="modal_write_form.jsp"></jsp:include>
                     	</c:otherwise>
                     </c:choose>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#modal-write" data-backdrop="false">Write</a>
-                    </li>
-                    
-                    <jsp:include page="modal_write_form.jsp"></jsp:include>
                     
                     <li class="nav-item">
                         <a class="nav-link" href="board.do?action=board#board">Board</a>

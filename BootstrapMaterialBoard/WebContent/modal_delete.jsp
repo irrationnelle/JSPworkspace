@@ -2,9 +2,7 @@
 	$(function() {
 		//twitter bootstrap script
 		$("#submitDelete").click(function() {
-			var dataVar = "writer="+$('#writerDelete').val();
-			dataVar += "&password="+$('#passwordDelete').val();
-			dataVar += "&title="+$('#titleDelete').val();
+			var dataVar = "&title="+$('#titleDelete').val();
 			dataVar += "&content="+$('#contentDelete').val();
 			dataVar += "&articleId="+${requestScope.article.articleId};
 			$.ajax({
@@ -39,17 +37,6 @@
 			</div>
 			<!--Body-->
 			<div class="modal-body">
-				<div class="md-form">
-					<i class="fa fa-user prefix"></i> <input type="text" id="writerDelete"
-						class="form-control" value="${requestScope.article.writer}"> <label for="writer"></label>
-				</div>
-
-				<div class="md-form">
-					<i class="fa fa-lock prefix"></i> <input type="password"
-						id="passwordDelete" class="form-control"> <label for="password">Your
-						password</label>
-				</div>
-
 				<div class="md-form">
 					<i class="fa fa-tag prefix"></i> <input type="text" id="titleDelete"
 						class="form-control" value="${requestScope.article.title}"> <label for="title"></label>

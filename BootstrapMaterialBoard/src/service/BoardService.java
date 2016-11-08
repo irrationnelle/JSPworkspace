@@ -14,11 +14,15 @@ public class BoardService {
 			instance = new BoardService();
 		return instance;
 	}
-	private BoardService(){}
+	
+	BoardDAO dao = null;
+	
+	private BoardService(){
+		dao = BoardDAO.getInstance();
+	}
 ///////////////////////////////////////////////////////////////
 	public ArticlePageVO makePage(int currentPage){
 		final int PAGE_PER_COUNT = 10; // 한페이지에 보여질 글의갯수
-		BoardDAO dao = BoardDAO.getInstance();
 		
 		int startRow = (currentPage-1)*PAGE_PER_COUNT;
 		int endRow = startRow+PAGE_PER_COUNT;
@@ -50,13 +54,11 @@ public class BoardService {
 	public int write(ArticleVO article){
 		article.setReadCount(0); // 조회수 0 셋팅
 		
-		BoardDAO dao = BoardDAO.getInstance();
 		return dao.insert(article);
 	}
 
 	public ArticleVO read(int articleId){
 	// 글 읽기를 수행할 때 조회수도 증가시키는 메소드
-		BoardDAO dao = BoardDAO.getInstance();
 		ArticleVO result = null;
 		
 		if(dao.updateReadCount(articleId)>0){
@@ -68,28 +70,23 @@ public class BoardService {
 	
 	// 수정 또는 삭제하기를 위해 조회수 증가없이 원본 읽어오는 메소드
 	public ArticleVO readWithoutReadCount(int articleId){
-		BoardDAO dao = BoardDAO.getInstance();
 		return dao.selectArticle(articleId);
 	}
 
 	// password를 검사한 후에 수정하기를 진행하는 메소드
 	public int modify(ArticleVO article){
-		BoardDAO dao = BoardDAO.getInstance();
-		int result = 0;
-		
 		ArticleVO original = dao.selectArticle(article.getArticleId());
-		if(article.getPassword().equals(original.getPassword())){
+		int result = 0;
+		if(original.getId().equals(article.getId())) {
 			result = dao.update(article);
 		}
 		return result;
 	}
 
 	public int delete(ArticleVO article) {
-		BoardDAO dao = BoardDAO.getInstance();
-		int result = 0;
-		
 		ArticleVO original = dao.selectArticle(article.getArticleId());
-		if(article.getPassword().equals(original.getPassword())){
+		int result = 0;
+		if(original.getId().equals(article.getId())) {
 			result = dao.delete(article);
 		}
 		return result;

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.BoardService;
 import vo.ArticlePageVO;
@@ -42,9 +43,9 @@ public class BoardController extends HttpServlet {
 		int result = -1;
 		ArticleVO article = null;
 		String title = null;
-		String writer = null;
 		String content = null;
-		String password = null;
+		
+		HttpSession session = request.getSession();
 		
 		switch(action){
 		
@@ -69,6 +70,24 @@ public class BoardController extends HttpServlet {
 			viewPath = "start_board.jsp";
 			break;
 			
+		case "write":
+			request.setCharacterEncoding("euc-kr");	
+			
+			title = request.getParameter("title");
+			String id = (String)session.getAttribute("id");
+			content = request.getParameter("content");
+			
+			article = new ArticleVO();
+			article.setTitle(title);
+			article.setId(id);
+			article.setContent(content);
+			
+			service = BoardService.getInstance();
+			result = service.write(article);
+			
+			System.out.println("글쓰기 결과: "+result);
+			break;
+			
 		case "read":
 			articleIdStr = request.getParameter("articleId");
 			articleId = Integer.parseInt(articleIdStr);
@@ -82,18 +101,16 @@ public class BoardController extends HttpServlet {
 			request.setCharacterEncoding("euc-kr");	
 			
 			title = request.getParameter("title");
-			writer = request.getParameter("writer");
 			content = request.getParameter("content");
-			password = request.getParameter("password");
 			articleIdStr = request.getParameter("articleId");
 			articleId = Integer.parseInt(articleIdStr);
 			
 			article = new ArticleVO();
 			article.setTitle(title);
-			article.setWriter(writer);
 			article.setContent(content);
-			article.setPassword(password);
 			article.setArticleId(articleId);
+			article.setId((String)session.getAttribute("id"));
+			
 			
 			result = service.modify(article);
 			
@@ -111,17 +128,13 @@ public class BoardController extends HttpServlet {
 		case "delete":
 			
 			title = request.getParameter("title");
-			writer = request.getParameter("writer");
 			content = request.getParameter("content");
-			password = request.getParameter("password");
 			articleIdStr = request.getParameter("articleId");
 			articleId = Integer.parseInt(articleIdStr);
 			
 			article = new ArticleVO();
 			article.setTitle(title);
-			article.setWriter(writer);
 			article.setContent(content);
-			article.setPassword(password);
 			article.setArticleId(articleId);
 			
 			result = service.delete(article);
