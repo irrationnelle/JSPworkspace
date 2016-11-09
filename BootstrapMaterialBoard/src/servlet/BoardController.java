@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.BoardService;
+import service.CommentService;
 import vo.ArticlePageVO;
 import vo.ArticleVO;
+import vo.CommentPageVO;
 
 @WebServlet("/board.do")
 public class BoardController extends HttpServlet {
@@ -33,6 +35,7 @@ public class BoardController extends HttpServlet {
 		String viewPath = "";
 		
 		BoardService service = BoardService.getInstance();
+		CommentService cService = CommentService.getInstance();
 		
 		if(action == null) {
 			action="main";
@@ -94,6 +97,18 @@ public class BoardController extends HttpServlet {
 			
 			article = service.read(articleId);
 			request.setAttribute("article", article);
+			
+			// comment Æ÷¿öµù
+			int cPage = 1;
+			
+			String cPageStr = request.getParameter("cPage");
+			if(cPageStr != null) {
+				cPage = Integer.parseInt(cPageStr);
+			}
+			
+			CommentPageVO commentPage = cService.makeCommentPage(articleId, cPage);
+			request.setAttribute("commentPage", commentPage);
+			
 			viewPath = "start_read.jsp";
 			break;
 			

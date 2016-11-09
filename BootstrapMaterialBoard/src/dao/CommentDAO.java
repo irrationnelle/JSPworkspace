@@ -22,7 +22,7 @@ public class CommentDAO {
 		}
 	}
 	
-	public List<CommentVO> selectCommentList(int startRow, int endRow) {
+	public List<CommentVO> selectCommentList(int articleId, int startRow, int endRow) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,10 +30,11 @@ public class CommentDAO {
 		
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "SELECT * FROM comment ORDER BY comment_num DESC LIMIT ?, ?";
+			String sql = "SELECT * FROM comment WHERE article_num=? ORDER BY comment_num DESC LIMIT ?, ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, (endRow-startRow));
+			pstmt.setInt(1, articleId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, (endRow-startRow));
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -58,18 +59,18 @@ public class CommentDAO {
 		return commentList;
 	}
 	
-	public int selectCommentCount() {
+	public int selectCommentCount(int articleId) {
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int commentCount = 0;
 		
 		try {
 			con = DBHelper.makeConnection();
-			String sql = "SELECT COUNT(*) FROM comment";
-			stmt = con.createStatement();
-			
-			rs = stmt.executeQuery(sql);
+			String sql = "SELECT COUNT(*) FROM comment WHERE article_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, articleId);
+			rs = pstmt.executeQuery(sql);
 			if(rs.next()) {
 				commentCount = rs.getInt(1);
 			}
@@ -78,10 +79,35 @@ public class CommentDAO {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(rs);
-			DBHelper.close(stmt);
+			DBHelper.close(pstmt);
 			DBHelper.close(con);
 		}
 		
 		return commentCount;
+	}
+
+	public int insert(CommentVO comment) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			con = DBHelper.makeConnection();
+			String sql = "INSERT INTO comment (article_num, id, content, write_date) VALUES(?, ?, ?, now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, comment.getArticleId());
+			pstmt.setString(2, comment.getId());
+			pstmt.setString(3, comment.getContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Comment insert fail!");
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(con);
+		}
+		
+		return result;
 	}
 }

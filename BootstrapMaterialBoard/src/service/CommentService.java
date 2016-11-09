@@ -13,15 +13,15 @@ public class CommentService {
 	
 	private CommentService(){	}
 	
-	public CommentPageVO makeCommentPage(int currentPage) {
+	public CommentPageVO makeCommentPage(int articleId, int currentPage) {
 		final int COUNT_PER_PAGE = 10;
 		final int UNIT_PAGE = 10;
 		
 		int startRow = (currentPage-1)*COUNT_PER_PAGE;
 		int endRow = startRow+COUNT_PER_PAGE;
 		
-		int totalPage = dao.selectCommentCount()/COUNT_PER_PAGE;
-		if(dao.selectCommentCount()%COUNT_PER_PAGE != 0) {
+		int totalPage = dao.selectCommentCount(articleId)/COUNT_PER_PAGE;
+		if(dao.selectCommentCount(articleId)%COUNT_PER_PAGE != 0) {
 			totalPage++;
 		}
 
@@ -32,9 +32,19 @@ public class CommentService {
 			endPage = totalPage;
 		}
 		
-		List<CommentVO> commentList = dao.selectCommentList(startRow, endRow);
+		List<CommentVO> commentList = dao.selectCommentList(articleId, startRow, endRow);
 		
 		CommentPageVO commentPage = new CommentPageVO(commentList, startPage, endPage, currentPage, totalPage);
 		return commentPage;
+	}
+
+	public int write(CommentVO comment) {
+		int result = dao.insert(comment);
+		return result;
+	}
+
+	public int showCommentCount(int articleId) {
+		int commentCount = dao.selectCommentCount(articleId);
+		return commentCount;
 	}
 }

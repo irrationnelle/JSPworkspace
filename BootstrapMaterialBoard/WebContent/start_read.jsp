@@ -58,6 +58,7 @@
 		        <div class="section-heading">
 		            <h3>Comments <span class="tag black">1</span></h3>
 		        </div>
+		        <c:forEach items="${requestScope.commentPage.commentList}" var="comment">
 		        <!--First row-->
 		        <div class="row">
 		            <!--Image column-->
@@ -68,70 +69,88 @@
 		
 		            <!--Content column-->
 		            <div class="col-sm-10 col-xs-12">
-		                <a><h4 class="user-name">John Doe</h4></a>
+		                <a><h4 class="user-name">${comment.id}</h4></a>
 		
 		                <div class="card-data">
 		                    <ul>
-		                        <h4><li class="comment-date"><i class="fa fa-clock-o"></i> 05/10/2015</li></h4>
+		                        <h4><li class="comment-date"><i class="fa fa-clock-o"></i> ${comment.writeDate}</li></h4>
 		                    </ul>
 		                </div>
 		
-		                <p class="comment-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-		                    cupidatat non proident.</p>
+		                <p class="comment-text">${comment.content }</p>
 		            </div>
 		            <!--/.Content column-->
-		
+		            <c:choose>
+		            <c:when test="${comment.id == sessionScope.id}">
+						<div class="text-xs-center">
+			                <button class="btn btn-blue-grey">Edit</button>
+			                <button class="btn btn-deep-orange">Delete</button>
+			            </div>
+		            </c:when>
+		            <c:otherwise>
+		            	<br>
+		            	<br>
+		            	<br>
+		            	<br>
+		            	<br>
+		            	<br>
+		            	<br>
+		            </c:otherwise>
+		            </c:choose>
 		        </div>
+		        </c:forEach>
 		        <!--/.First row-->
-				<div class="text-xs-center">
-	                <button class="btn btn-blue-grey">Edit</button>
-	                <button class="btn btn-deep-orange">Delete</button>
-	            </div>
 		
 		    </div>
 		    <!--/.Main wrapper-->
 		
 		</section>
 		<!--/Section: Comments list-->
-		<br>
-		<br>
-		<!--Section: Leave a comment-->
-		<section>
-		
-		    <!--Leave a reply form-->
-		    <div class="reply-form">
-		        <h3 class="section-heading">Leave a comment </h3>
-<!-- 		        <p class="text-xs-center"></p> -->
-		
-		        <!--Third row-->
-		        <div class="row">
-		            <!--Image column-->
-		            <div class="col-sm-2 col-xs-12">
-		                <img src="https://ssl.gstatic.com/images/branding/product/2x/avatar_circle_grey_64dp.png">
-		            </div>
-		            <!--/.Image column-->
-		
-		            <!--Content column-->
-		            <div class="col-sm-10 col-xs-12">
-		                <div class="md-form">
-		                    <textarea type="text" id="form8" class="md-textarea"></textarea>
-		                    <label for="form8">Your comment</label>
-		                </div>
-		
-		            </div>
-		
-		            <div class="text-xs-center">
-		                <button class="btn btn-unique">Submit</button>
-		            </div>
-		            <!--/.Content column-->
-		
-		        </div>
-		        <!--/.Third row-->
-		    </div>
-		    <!--/.Leave a reply form-->
-		
-		</section>
-		<!--/Section: Leave a reply (Logged In User)-->
+		<c:if test="${not empty sessionScope.id}">
+			<br>
+			<br>
+			<!--Section: Leave a comment-->
+			<section>
+			
+			    <!--Leave a reply form-->
+			    <div class="reply-form">
+			        <h3 class="section-heading">Leave a comment </h3>
+	<!-- 		        <p class="text-xs-center"></p> -->
+			
+			        <!--Third row-->
+			        <div class="row">
+			            <!--Image column-->
+			            <div class="col-sm-2 col-xs-12">
+			                <img src="https://ssl.gstatic.com/images/branding/product/2x/avatar_circle_grey_64dp.png">
+			            </div>
+			            <!--/.Image column-->
+			
+			            <!--Content column-->
+			            <form action="comment.do?" method="post">
+			            	<input type="hidden" name="action" value="write">
+			            	<input type="hidden" name="articleId" value="${requestScope.article.articleId}">
+			            	<input type="hidden" name="id" value="${sessionScope.id}">
+				            <div class="col-sm-10 col-xs-12">
+				                <div class="md-form">
+				                    <textarea type="text" id="content" name="content" class="md-textarea"></textarea>
+				                    <label for="content">Your comment</label>
+				                </div>
+				            </div>
+				
+				            <div class="text-xs-center">
+				                <button type="submit" class="btn btn-unique">Submit</button>
+				            </div>
+			            </form>
+			            <!--/.Content column-->
+			
+			        </div>
+			        <!--/.Third row-->
+			    </div>
+			    <!--/.Leave a reply form-->
+			
+			</section>
+			<!--/Section: Leave a reply (Logged In User)-->
+		</c:if>
 		
 		<jsp:include page="modal_update.jsp"></jsp:include>
 		<jsp:include page="modal_delete.jsp"></jsp:include>
