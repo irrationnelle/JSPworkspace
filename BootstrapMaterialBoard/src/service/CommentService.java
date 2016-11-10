@@ -20,8 +20,9 @@ public class CommentService {
 		int startRow = (currentPage-1)*COUNT_PER_PAGE;
 		int endRow = startRow+COUNT_PER_PAGE;
 		
-		int totalPage = dao.selectCommentCount(articleId)/COUNT_PER_PAGE;
-		if(dao.selectCommentCount(articleId)%COUNT_PER_PAGE != 0) {
+		
+		int totalPage = (dao.selectCommentCount(articleId))/COUNT_PER_PAGE;
+		if((dao.selectCommentCount(articleId))%COUNT_PER_PAGE != 0) {
 			totalPage++;
 		}
 

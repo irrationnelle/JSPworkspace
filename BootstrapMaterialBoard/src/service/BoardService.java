@@ -31,6 +31,12 @@ public class BoardService {
 		List<ArticleVO> articleList = 
 				dao.selectArticleList(startRow, endRow);
 		
+		// 글에 코멘트 정보 삽입
+		CommentService cService = CommentService.getInstance();
+		for(int i=0; i<articleList.size(); i++) {
+			articleList.get(i).setCommentCount(cService.showCommentCount(articleList.get(i).getArticleId()));
+		}
+		
 		// 총 게시글 갯수 조회
 		int articleTotalCount = dao.selectArticleCount();
 		

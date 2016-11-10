@@ -56,7 +56,7 @@
 		    <!--Main wrapper-->
 		    <div class="comments-list">
 		        <div class="section-heading">
-		            <h3>Comments <span class="tag black">1</span></h3>
+		            <h3>Comments <span class="tag black">${requestScope.commentCount}</span></h3>
 		        </div>
 		        <c:forEach items="${requestScope.commentPage.commentList}" var="comment">
 		        <!--First row-->

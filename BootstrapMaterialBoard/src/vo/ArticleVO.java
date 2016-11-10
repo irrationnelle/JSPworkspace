@@ -9,6 +9,7 @@ public class ArticleVO {
 	private String content;
 	private Date writeDate;
 	private int readCount;
+	private int commentCount;
 //////////////////////////////////////////////////////////
 	public ArticleVO(){
 	}
@@ -64,7 +65,15 @@ public class ArticleVO {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-//////////////////////////////////////////////////////////////
+	
+	public int getCommentCount() {
+		return commentCount;
+	}
+	
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	//////////////////////////////////////////////////////////////
 	@Override
 	public String toString() {
 		return "ArticleVO [articleId=" + articleId + ", title=" + title + ", id=" + id + ", content=" + content

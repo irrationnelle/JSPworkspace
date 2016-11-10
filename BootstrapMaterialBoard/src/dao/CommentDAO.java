@@ -70,7 +70,7 @@ public class CommentDAO {
 			String sql = "SELECT COUNT(*) FROM comment WHERE article_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleId);
-			rs = pstmt.executeQuery(sql);
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				commentCount = rs.getInt(1);
 			}
@@ -82,7 +82,6 @@ public class CommentDAO {
 			DBHelper.close(pstmt);
 			DBHelper.close(con);
 		}
-		
 		return commentCount;
 	}
 

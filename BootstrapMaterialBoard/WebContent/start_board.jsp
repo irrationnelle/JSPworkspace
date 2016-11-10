@@ -43,7 +43,7 @@
 							<tr>
 								<td>${article.articleId}</td>
 								<td>
-								<a href="board.do?action=read&articleId=${article.articleId}#boardRead">${article.title}</a>
+								<a href="board.do?action=read&articleId=${article.articleId}#boardRead">${article.title} [${article.commentCount}]</a>
 								</td>
 								<td>${article.id }</td>
 								<td>${article.writeDate }</td>

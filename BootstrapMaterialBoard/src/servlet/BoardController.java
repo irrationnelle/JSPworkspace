@@ -92,6 +92,8 @@ public class BoardController extends HttpServlet {
 			break;
 			
 		case "read":
+			
+			// acticle 포워딩
 			articleIdStr = request.getParameter("articleId");
 			articleId = Integer.parseInt(articleIdStr);
 			
@@ -108,6 +110,10 @@ public class BoardController extends HttpServlet {
 			
 			CommentPageVO commentPage = cService.makeCommentPage(articleId, cPage);
 			request.setAttribute("commentPage", commentPage);
+			
+			// commentCount 포워딩
+			int commentCount = cService.showCommentCount(articleId);
+			request.setAttribute("commentCount", commentCount);
 			
 			viewPath = "start_read.jsp";
 			break;
