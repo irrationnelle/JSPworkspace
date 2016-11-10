@@ -98,13 +98,15 @@ public class BoardDAO {
 			con = DBHelper.makeConnection();
 			String sql = "INSERT INTO BOARD "
 			+"(TITLE,ID,CONTENT,WRITE_DATE,READ_COUNT)"
-			+"VALUES(?,?,?,now(),?)";
+			+"VALUES(?,?,?,now(),?, ?, ?)";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getId());
 			pstmt.setString(3, article.getContent());
 			pstmt.setInt(4, article.getReadCount());
+			pstmt.setInt(5, article.getReplyLevel());
+			pstmt.setInt(6, article.getReplyIndex());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -138,6 +140,8 @@ public class BoardDAO {
 				article.setContent(rs.getString(4));
 				article.setWriteDate(rs.getTimestamp(5));
 				article.setReadCount(rs.getInt(6));
+				article.setReplyLevel(rs.getInt(7));
+				article.setReplyIndex(rs.getInt(8));
 			}
 		} catch (SQLException e) {
 			System.out.println("selectArticle ¿¡·¯");
@@ -210,7 +214,7 @@ public class BoardDAO {
 		try {
 			con = DBHelper.makeConnection();
 			String sql = 
-					  "DELETE FROM BOARD "
+					  "DELETE FROM board "
 					+ "WHERE article_num=?";
 			
 			pstmt = con.prepareStatement(sql);

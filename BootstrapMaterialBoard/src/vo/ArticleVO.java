@@ -9,10 +9,17 @@ public class ArticleVO {
 	private String content;
 	private Date writeDate;
 	private int readCount;
+	
+	// Comment 갯수 표시
 	private int commentCount;
+	
+	// 답글 level과 index
+	private int replyLevel;
+	private int replyIndex;
+	
 //////////////////////////////////////////////////////////
-	public ArticleVO(){
-	}
+	public ArticleVO(){ }
+	
 	public ArticleVO(String title, String id, String content, Date writeDate, int readCount) {
 		this.title = title;
 		this.id = id;
@@ -73,6 +80,23 @@ public class ArticleVO {
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
+	
+	public int getReplyLevel() {
+		return replyLevel;
+	}
+
+	public void setReplyLevel(int replyLevel) {
+		this.replyLevel = replyLevel;
+	}
+
+	public int getReplyIndex() {
+		return replyIndex;
+	}
+
+	public void setReplyIndex(int replyIndex) {
+		this.replyIndex = replyIndex;
+	}
+
 	//////////////////////////////////////////////////////////////
 	@Override
 	public String toString() {

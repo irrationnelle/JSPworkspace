@@ -36,6 +36,9 @@
 				        <h2 class="card-title">${requestScope.article.title }</h2>
 				        <p class="card-text">${requestScope.article.content }</p>
 				        <a href="board.do?action=board#board" class="btn btn-elegant">List</a>
+				        <c:if test="${not empty sessionScope.id}">
+				       		<a data-toggle="modal" data-target="#modal-reply" data-backdrop="false" class="btn btn-purple" id="reply">reply</a> 
+				        </c:if>
 				        <c:if test="${sessionScope.id == requestScope.article.id}">
 					        <a data-toggle="modal" data-target="#modal-update" data-backdrop="false" class="btn btn-mdb" id="update">Edit</a>
 					        <a data-toggle="modal" data-target="#modal-delete" data-backdrop="false" class="btn btn-deep-orange" id="update">Delete</a>
@@ -154,6 +157,7 @@
 		
 		<jsp:include page="modal_update.jsp"></jsp:include>
 		<jsp:include page="modal_delete.jsp"></jsp:include>
+		<jsp:include page="modal_reply.jsp"></jsp:include>
 		
 		<!-- Footer -->
 		<jsp:include page="start_footer.jsp"></jsp:include>

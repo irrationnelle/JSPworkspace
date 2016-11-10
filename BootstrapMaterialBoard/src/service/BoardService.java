@@ -91,6 +91,10 @@ public class BoardService {
 
 	public int delete(ArticleVO article) {
 		ArticleVO original = dao.selectArticle(article.getArticleId());
+		System.out.println(original.getArticleId());
+		System.out.println(article.getArticleId());
+		System.out.println(original.getId());
+		System.out.println(article.getId());
 		int result = 0;
 		if(original.getId().equals(article.getId())) {
 			result = dao.delete(article);

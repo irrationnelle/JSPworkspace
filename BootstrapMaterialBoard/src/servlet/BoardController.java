@@ -42,11 +42,13 @@ public class BoardController extends HttpServlet {
 		}
 		
 		String articleIdStr = null;
-		int articleId = 0;
+		int articleId = -1;
 		int result = -1;
 		ArticleVO article = null;
 		String title = null;
 		String content = null;
+		String id = null;
+		int replyLevel = -1;
 		
 		HttpSession session = request.getSession();
 		
@@ -77,18 +79,35 @@ public class BoardController extends HttpServlet {
 			request.setCharacterEncoding("euc-kr");	
 			
 			title = request.getParameter("title");
-			String id = (String)session.getAttribute("id");
+			id = (String)session.getAttribute("id");
 			content = request.getParameter("content");
+			replyLevel = 0;
 			
 			article = new ArticleVO();
 			article.setTitle(title);
 			article.setId(id);
 			article.setContent(content);
+			article.setReplyLevel(replyLevel);
+			article.setReplyIndex(0);
 			
 			service = BoardService.getInstance();
 			result = service.write(article);
 			
 			System.out.println("글쓰기 결과: "+result);
+			break;
+			
+		case "reply":
+			request.setCharacterEncoding("euc-kr");	
+			
+			title = request.getParameter("titleReply");
+			id = (String)session.getAttribute("id");
+			content = request.getParameter("contentReply");
+			String replyLevelStr = request.getParameter("replyLevel");
+			if(replyLevelStr != null) {
+				replyLevel = Integer.parseInt(replyLevelStr);
+			}
+			replyLevel++;
+			System.out.println(replyLevel);
 			break;
 			
 		case "read":
@@ -153,10 +172,15 @@ public class BoardController extends HttpServlet {
 			articleIdStr = request.getParameter("articleId");
 			articleId = Integer.parseInt(articleIdStr);
 			
+			System.out.println(title);
+			System.out.println(content);
+			System.out.println(articleId);
+			
 			article = new ArticleVO();
 			article.setTitle(title);
 			article.setContent(content);
 			article.setArticleId(articleId);
+			article.setId((String)session.getAttribute("id"));
 			
 			result = service.delete(article);
 			
