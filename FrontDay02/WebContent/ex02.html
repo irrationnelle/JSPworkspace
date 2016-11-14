@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>ex02.html</title>
+<script type="text/javascript">
+	var password;
+	var verify;
+
+	function btnClick() {
+		password = document.getElementById("password").value;
+		verify = document.getElementById("verify").value;
+		alert(password);
+		if (password == verify) {
+			alert("같은 비밀번호입니다!");
+		} else {
+			alert("비밀번호가 서로 다릅니다!");
+		}
+	}
+</script>
+</head>
+<body>
+	비밀번호 입력:
+	<input type="password" id="password">
+	<br> 비밀번호 확인:
+	<input type="password" id="verify">
+	<br>
+	<input type="button" value="button" onClick="btnClick()">
+</body>
+</html>
