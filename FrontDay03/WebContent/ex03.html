@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	// 자바스크립트 이벤트의 종류
+	// onkeyup : 키보드의 키를 눌렀다가 떼는 순간 발생하는 이벤트
+	// onload : html문서의 요소가 모두 로드 되었을 때
+	// onmousedown 
+	// onmousemove
+	// onmouseout
+	// onmouseover
+	// onmouseup
+	// onsubmit : form태그 내부의 서브밋 버튼을 눌렀을 때 발생하는 이벤트
+	window.onload = function() {
+        var btn = document.getElementById("btn");
+		btn.onclick = function(){
+            var randNum = 1+Math.abs(Math.floor(Math.random()*10));
+            return randNum;
+		}
+		var getRandNum = btn.onclick;
+        
+        var number = document.getElementById("number");
+                
+        var submit = document.getElementById("submit");
+        submit.onclick = fuction() {
+            if(number.value == getRandNum) {
+                document.write("숫자가 맞음");
+            } else {
+                document.write("숫자가 다름");
+            }
+        }
+        
+	}
+</script>
+</head>
+<body>
+    <button id="btn">Select Random Number</button><br>
+    숫자입력: <input type="text" id="number"><br>
+    <button id="submit">숫자 맞추기</button>
+</body>
+</html>
