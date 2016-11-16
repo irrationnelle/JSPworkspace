@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('h1').each(function(index, item){
+            $(item).find('strong').css('color', 'red');
+        });
+    });
+</script>
+</head>
+<body>
+    <h1><strong>1번입니다</strong></h1>
+    <h2><strong>2번입니다</strong></h2>
+    <h1>3번입니다</h1>
+    <h1>4번입니다</h1>
+    <h1><strong>5번입니다</strong></h1>
+</body>
+</html>
