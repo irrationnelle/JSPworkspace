@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var child;
+    function openChild() {
+        child = window.open("","","width=400, height=300, resizable=no");
+        child.document.write("<p>Child Window</p>");
+        child.moveTo(100, 100);
+    }
+    
+    function moveChild() {
+        child.moveBy(10, 10);
+        child.focus();
+    }
+    
+    function closeChild() {
+        child.close();
+    }
+</script>
+</head>
+<body>
+    <input type="button" value="Open" onclick="openChild()" />
+    <input type="button" value="Move" onclick="moveChild()" />
+    <input type="button" value="Close" onclick="closeChild()" />
+</body>
+</html>
