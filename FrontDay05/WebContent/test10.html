@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>test09.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var img = "<img src='http://comty.co.kr/data/editor/1608/1890580086_iSD8VMte_897fd26f876ca39c54c5caaaa8a7f3be30b90bcb.JPG' width='150' height='100'/>"
+
+        // <div> 태그 내부만 삭제함
+        $('#empty').click(function(){
+            $('div').empty();
+        });
+        
+        // <div> 태그 자체를 삭제함
+        $('#remove').click(function(){
+            $('div').remove();
+        });
+        
+        $('#append').click(function(){
+            $('div').append(img);
+        })
+    })
+</script>
+</head>
+<body>
+    <button id="empty">empty</button>
+    <button id="remove">remove</button>
+    <button id="append">append</button>
+    <div>
+        <h1>test</h1>
+    </div>
+</body>
+</html>

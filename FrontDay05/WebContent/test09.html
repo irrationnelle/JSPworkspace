@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>test09.html</title>
+<style type="text/css">
+    h2{ background: yellow;}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var img = "<img src='http://comty.co.kr/data/editor/1608/1890580086_iSD8VMte_897fd26f876ca39c54c5caaaa8a7f3be30b90bcb.JPG' width='300' height='200'/>";
+        $("#btnAppend").click(function(){
+            $('#ap').append(img);
+        });
+        $('#btnPrepend').click(function(){
+            $('#pre').prepend(img);
+        });
+        $('#btnAfter').click(function(){
+            $('#af').after(img);
+        });
+        $('#btnBefore').click(function(){
+            $('#be').before(img);
+        });
+    })
+</script>
+</head>
+<body>
+    <button id="btnAppend">append 추가</button>
+    <button id="btnPrepend">prepend 추가</button>
+    <h2 id="ap">append</h2>
+    <h2 id="pre">prepend</h2>
+    <hr>
+    <button id="btnAfter">after 추가</button>
+    <button id="btnBefore">before 추가</button><br>
+    <h2 id="be">before</h2>
+    <h2 id="af">after</h2>
+</body>
+</html>
