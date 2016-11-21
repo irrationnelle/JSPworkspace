@@ -49,6 +49,7 @@ public class NaverServlet extends HttpServlet{
 //		System.out.println(result.toString());
 		
 		// 클라이언트에게 결과 데이터(xml) 응답하기
+		System.out.println(result);
 		response.setContentType("text/xml;charset=UTF-8");
 		response.getWriter().write(result.toString());
 	}

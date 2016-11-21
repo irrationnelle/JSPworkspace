@@ -10,7 +10,8 @@
 		$('#btnSearch').on('click', function(){
 			$('table tr:gt(0)').remove();
 			
-			var keyword = $('#keyword').val();
+			var keyword = $('#keyword').v
+			al();
 			
 			$.ajax({
 				url: "searchBook.do",
