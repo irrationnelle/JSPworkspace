@@ -1,0 +1,32 @@
+
+.cd-dropdown-wrapper a,.cd-dropdown-wrapper span,.cd-dropdown-wrapper div,.cd-dropdown-wrapper h2,.cd-dropdown-wrapper ul,.cd-dropdown-wrapper li,.cd-dropdown-wrapper form
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, main {
+	display: block;
+}
+body {
+	
+}
+ol, ul {
+	
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
