@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 
-	<!-- style 적용, css 및 자바스크립트, 부트스트랩 불러오기! -->
+	<!-- style 적용, css 및 자바스크립트, 부트스트랩 불러오기 -->
     <jsp:include page="include\head.jsp" />
     
 </head>
